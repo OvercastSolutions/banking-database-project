@@ -47,7 +47,7 @@ CREATE TABLE TransactionStatus (
 CREATE TABLE Accounts (
     accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    balance INT NOT NULL,
+    balance INT NOT NULL DEFAULT 0,
     -- TODO
 );
 
@@ -62,6 +62,7 @@ CREATE TABLE Customers (
 );
 
 CREATE TABLE Certificates (
+    certificateID INT UNIQUE NOT NULL AUTO_INCREMENT,
     ownerID INT NOT NULL,
     startDate: DATE NOT NULL,
     endDate: DATE NOT NULL,
@@ -70,8 +71,64 @@ CREATE TABLE Certificates (
     -- TODO
 );
 
--- NEED JOIN TABLE(S) FOR MANY-TO-MANY RELATIONSHIP(S)
+-- JOIN TABLE(S) FOR MANY-TO-MANY RELATIONSHIP(S)
+
+CREATE TABLE Customer_Account (
+    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT, -- PK junction ID
+    customerID INT NOT NULL,
+    accountID INT NOT NULL,
+    -- TODO
+);
+
+CREATE TABLE Account_Transaction (
+    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT, -- PK junction ID
+    accountID INT NOT NULL,
+    transactionID INT NOT NULL,
+    -- TODO
+);
+
 
 /*
 * Fill the tables with mock data
-*/ 
+*/
+
+-- INSERT TRANSACTION STATUS
+INSERT INTO TransactionStatus (1, "Pending", "Transaction is pending");
+INSERT INTO TransactionStatus (2, "Completed", "Transaction is completed");
+INSERT INTO TransactionStatus (3, "Cancelled", "Transaction is cancelled");
+
+-- INSERT CUSTOMERS
+INSERT INTO Customers (1, "John", "Doe", "johndoe@example.com", 123121234, "12 Nowhere Ave");
+INSERT INTO Customers (2, "Jane", "Doe", "janedoe@example.com", 321214321, "12 Nowhere Ave");
+INSERT INTO Customers (3, "John", "Smith", "johnsmith@example.com", 456454567, "99 Somewhere St");
+INSERT INTO Customers (4, "Joe", "Jones", "joejones@gmail.com", 987898789, "1 Anywhere Rd");
+
+-- INSERT ACCOUNTS
+--- Doe's Joint Checking
+INSERT INTO Accounts (1, "Doe's Joint Checking");
+INSERT INTO Customer_Account (1, 1, 1); -- Adding John Doe to account
+INSERT INTO Customer_Account (2, 2, 1); -- Adding Jane Doe to account
+
+--- John Doe's Checking
+INSERT INTO Accounts (2, "John Doe's Checking");
+INSERT INTO Customer_Account (3, 1, 2); -- Adding John Doe to account
+
+--- John Smith's Checking
+INSERT INTO Accounts (3, "John Smith's Checking");
+INSERT INTO Customer_Account (4, 3, 3); -- Adding John Smith to account
+
+--- Joe's Checking
+INSERT INTO Accounts (4, "Joe's Checking");
+INSERT INTO Customer_Account (5, 4, 4); -- Adding Joe Jones to account
+
+-- INSERT TRANSACTIONS
+--- John Doe deposits $1000 into his checking account
+INSERT INTO Transactions (1, 1000, 2021-04-05 12:00:00, NULL, 2, 2);
+--- John Doe transfers $900 from his checking to the joint checking account
+INSERT INTO Transactions (2, 900, 2021-04-05 12:05:00, 2, 1, 2);
+--- Jane Doe withdraws $100 from the joint checking account
+INSERT INTO Transactions (3, 100, 2021-04-05 12:10:00, 1, NULL, 2);
+--- John Smith deposits $500 into his checking account
+INSERT INTO Transactions (4, 500, 2021-04-05 12:15:00, NULL, 3, 2);
+--- Joe Jones deposits $80 into his checking account
+INSERT INTO Transactions (5, 80, 2021-04-05 12:20:00, NULL, 4, 2);
