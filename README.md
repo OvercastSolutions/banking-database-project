@@ -3,4 +3,4 @@ For Oregon State University, CS 340: Introduction to Databases. Term project moc
 CHANGELOG
 ~~~~~~~~~
 05/04/2023:
-- Added README.md and DDL.sql in initial code step of the project. Submission for "Project Step  Draft".
+- Added README.md and DDL.sql in initial code step of the project. Submission for "Project Step Draft".
