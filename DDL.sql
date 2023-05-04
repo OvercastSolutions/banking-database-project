@@ -93,9 +93,9 @@ CREATE TABLE Account_Transaction (
 */
 
 -- INSERT TRANSACTION STATUS
-INSERT INTO TransactionStatus (1, "Pending", "Transaction is pending");
-INSERT INTO TransactionStatus (2, "Completed", "Transaction is completed");
-INSERT INTO TransactionStatus (3, "Cancelled", "Transaction is cancelled");
+INSERT INTO TransactionStatus (1, "Pending", "Transaction still pending");
+INSERT INTO TransactionStatus (2, "Completed", "Transaction has completed");
+INSERT INTO TransactionStatus (3, "Cancelled", "Transaction was cancelled");
 
 -- INSERT CUSTOMERS
 INSERT INTO Customers (1, "John", "Doe", "johndoe@example.com", 123121234, "12 Nowhere Ave");
