@@ -108,15 +108,12 @@ INSERT INTO Customers (4, "Joe", "Jones", "joejones@gmail.com", 987898789, "1 An
 INSERT INTO Accounts (1, "Doe's Joint Checking");
 INSERT INTO Customer_Account (1, 1, 1); -- Adding John Doe to account
 INSERT INTO Customer_Account (2, 2, 1); -- Adding Jane Doe to account
-
 --- John Doe's Checking
 INSERT INTO Accounts (2, "John Doe's Checking");
 INSERT INTO Customer_Account (3, 1, 2); -- Adding John Doe to account
-
 --- John Smith's Checking
 INSERT INTO Accounts (3, "John Smith's Checking");
 INSERT INTO Customer_Account (4, 3, 3); -- Adding John Smith to account
-
 --- Joe's Checking
 INSERT INTO Accounts (4, "Joe's Checking");
 INSERT INTO Customer_Account (5, 4, 4); -- Adding Joe Jones to account
@@ -130,11 +127,19 @@ INSERT INTO Transactions (2, 900, 2021-04-05 12:05:00, 2, 1, 2);
 INSERT INTO Account_Transaction (2, 1, 2);
 INSERT INTO Account_Transaction (3, 2, 2);
 --- Jane Doe withdraws $100 from the joint checking account
-INSERT INTO Transactions (3, 100, 2021-04-05 12:10:00, 1, NULL, 2);
+INSERT INTO Transactions (3, 100, 2021-04-06 12:10:00, 1, NULL, 2);
 INSERT INTO Account_Transaction (4, 1, 3);
 --- John Smith deposits $500 into his checking account
-INSERT INTO Transactions (4, 500, 2021-04-05 12:15:00, NULL, 3, 2);
+INSERT INTO Transactions (4, 500, 2021-04-07 12:15:00, NULL, 3, 2);
 INSERT INTO Account_Transaction (5, 3, 4);
 --- Joe Jones deposits $80 into his checking account
-INSERT INTO Transactions (5, 80, 2021-04-05 12:20:00, NULL, 4, 2);
+INSERT INTO Transactions (5, 80, 2021-04-09 12:20:00, NULL, 4, 2);
 INSERT INTO Account_Transaction (6, 4, 5);
+
+-- INSERT CERTIFICATES
+--- John Doe's Certificate
+INSERT INTO Certificates (1, 1, 2021-04-05, 2022-04-05, 1000, 1);
+--- John Smith's Certificate
+INSERT INTO Certificates (3, 3, 2021-05-05, 2022-05-05, 1000, 1);
+--- Joe Jones' Certificate
+INSERT INTO Certificates (2, 4, 2021-06-05, 2022-06-05, 1000, 1);
