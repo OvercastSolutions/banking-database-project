@@ -27,6 +27,14 @@ DROP TABLE IF EXISTS Transactions;
 
 -- DEFINE TABLES
 
+CREATE TABLE Accounts (
+    accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    balance INT NOT NULL DEFAULT 0,
+    
+    PRIMARY KEY (accountID),
+);
+
 CREATE TABLE Transactions (
     transactionID INT UNIQUE NOT NULL AUTO_INCREMENT,
     amount: INT NOT NULL,
@@ -34,21 +42,18 @@ CREATE TABLE Transactions (
     sourceID: INT NULL,
     destID: INT NULL,
     statusID: INT NOT NULL,
-    -- TODO
+
+    PRIMARY KEY (transactionID),
+    FOREIGN KEY (sourceID) REFERENCES Accounts(accountID),
+    FOREIGN KEY (destID) REFERENCES Accounts(accountID),
 );
 
 CREATE TABLE TransactionStatus (
     transactionID INT UNIQUE NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    -- TODO
-);
-
-CREATE TABLE Accounts (
-    accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    balance INT NOT NULL DEFAULT 0,
-    -- TODO
+    
+    PRIMARY KEY (transactionID),
 );
 
 CREATE TABLE Customers (
@@ -58,7 +63,8 @@ CREATE TABLE Customers (
     email VARCHAR(255) NOT NULL,
     ssn VARCHAR(9) NOT NULL,
     address VARCHAR(255) NOT NULL,
-    -- TODO
+    
+    PRIMARY KEY (customerID),
 );
 
 CREATE TABLE Certificates (
@@ -66,25 +72,33 @@ CREATE TABLE Certificates (
     ownerID INT NOT NULL,
     startDate: DATE NOT NULL,
     endDate: DATE NOT NULL,
-    amount: int NOT NULL,
-    rate: int NOT NULL,
-    -- TODO
+    amount: INT NOT NULL,
+    rate: INT NOT NULL,
+    
+    PRIMARY KEY (certificateID),
+    FOREIGN KEY (ownerID) REFERENCES Customers(customerID),
 );
 
 -- JOIN TABLE(S) FOR MANY-TO-MANY RELATIONSHIP(S)
 
 CREATE TABLE Customer_Account (
-    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT, -- PK junction ID
+    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT,
     customerID INT NOT NULL,
     accountID INT NOT NULL,
-    -- TODO
+    
+    PRIMARY KEY (jxnID),
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID),
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID),
 );
 
 CREATE TABLE Account_Transaction (
-    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT, -- PK junction ID
+    jxnID INT UNIQUE NOT NULL AUTO_INCREMENT,
     accountID INT NOT NULL,
     transactionID INT NOT NULL,
-    -- TODO
+    
+    PRIMARY KEY (jxnID),
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID),
+    FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID),
 );
 
 
