@@ -124,11 +124,17 @@ INSERT INTO Customer_Account (5, 4, 4); -- Adding Joe Jones to account
 -- INSERT TRANSACTIONS
 --- John Doe deposits $1000 into his checking account
 INSERT INTO Transactions (1, 1000, 2021-04-05 12:00:00, NULL, 2, 2);
+INSERT INTO Account_Transaction (1, 2, 1);
 --- John Doe transfers $900 from his checking to the joint checking account
 INSERT INTO Transactions (2, 900, 2021-04-05 12:05:00, 2, 1, 2);
+INSERT INTO Account_Transaction (2, 1, 2);
+INSERT INTO Account_Transaction (3, 2, 2);
 --- Jane Doe withdraws $100 from the joint checking account
 INSERT INTO Transactions (3, 100, 2021-04-05 12:10:00, 1, NULL, 2);
+INSERT INTO Account_Transaction (4, 1, 3);
 --- John Smith deposits $500 into his checking account
 INSERT INTO Transactions (4, 500, 2021-04-05 12:15:00, NULL, 3, 2);
+INSERT INTO Account_Transaction (5, 3, 4);
 --- Joe Jones deposits $80 into his checking account
 INSERT INTO Transactions (5, 80, 2021-04-05 12:20:00, NULL, 4, 2);
+INSERT INTO Account_Transaction (6, 4, 5);
