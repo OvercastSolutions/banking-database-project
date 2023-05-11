@@ -15,12 +15,7 @@ app.engine('hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', 'hbs');
 
 // Database connection configuration
-const dbConfig = {
-    host: 'your_host',
-    user: 'your_user',
-    password: 'your_password',
-    database: 'your_database'
-};
+const dbConfig = require('./dbConfig.json');
 
 // Helper function to connect to the database
 async function connectToDatabase() {
@@ -33,7 +28,13 @@ app.get('/', (req, res) => {
 });
 
 // Table routes
-const tables = ['accounts', 'transactions', 'transactionstatus', 'customers', 'certificates', 'customer_account', 'account_transaction'];
+const tables = ['accounts',
+                'transactions',
+                'transactionstatus',
+                'customers',
+                'certificates',
+                'customer_account',
+                'account_transaction'];
 
 tables.forEach(table => {
   app.get(`/${table}`, async (req, res) => {
