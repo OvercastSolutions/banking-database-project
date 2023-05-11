@@ -1,0 +1,28 @@
+{
+  "name": "banking-database-project",
+  "version": "1.0.0",
+  "description": "For Oregon State University, CS 340: Introduction to Databases. Term project mocking a potential database for a local bank in Corvallis, Oregon. Program developed by Stef Timmermans and Derek Williams.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stef-timmermans/banking-database-project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stef-timmermans/banking-database-project/issues"
+  },
+  "homepage": "https://github.com/stef-timmermans/banking-database-project#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "handlebars": "^4.7.7",
+    "mysql2": "^3.3.0"
+  }
+}
