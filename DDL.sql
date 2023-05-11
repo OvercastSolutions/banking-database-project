@@ -37,11 +37,11 @@ CREATE TABLE Accounts (
 
 CREATE TABLE Transactions (
     transactionID INT UNIQUE NOT NULL AUTO_INCREMENT,
-    amount: INT NOT NULL,
-    timestamp: DATETIME NOT NULL,
-    sourceID: INT NULL,
-    destID: INT NULL,
-    statusID: INT NOT NULL,
+    amount INT NOT NULL,
+    timestamp DATETIME NOT NULL,
+    sourceID INT NULL,
+    destID INT NULL,
+    statusID INT NOT NULL,
 
     PRIMARY KEY (transactionID),
     FOREIGN KEY (sourceID) REFERENCES Accounts(accountID),
@@ -70,10 +70,10 @@ CREATE TABLE Customers (
 CREATE TABLE Certificates (
     certificateID INT UNIQUE NOT NULL AUTO_INCREMENT,
     ownerID INT NOT NULL,
-    startDate: DATE NOT NULL,
-    endDate: DATE NOT NULL,
-    amount: INT NOT NULL,
-    rate: INT NOT NULL,
+    startDate DATE NOT NULL,
+    endDate DATE NOT NULL,
+    amount INT NOT NULL,
+    rate INT NOT NULL,
     
     PRIMARY KEY (certificateID),
     FOREIGN KEY (ownerID) REFERENCES Customers(customerID),
@@ -106,7 +106,7 @@ CREATE TABLE Account_Transaction (
 * Fill the tables with mock data
 */
 
--- INSERT TRANSACTION STATUS
+-- INSERT TRANSACTION STATUS CATEGORIES
 INSERT INTO TransactionStatus (1, "Pending", "Transaction still pending");
 INSERT INTO TransactionStatus (2, "Completed", "Transaction has completed");
 INSERT INTO TransactionStatus (3, "Cancelled", "Transaction was cancelled");
