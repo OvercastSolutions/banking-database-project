@@ -111,7 +111,7 @@ CREATE TABLE Account_Transaction (
 INSERT INTO TransactionStatus (name, description) VALUES
 ("Pending", "Transaction still pending"),
 ("Completed", "Transaction has completed"),
-("Cancelled", "Transaction was cancelled");
+("Canceled", "Transaction was canceled");
 
 -- INSERT CUSTOMERS
 INSERT INTO Customers (fname, lname, email, ssn, address) VALUES
