@@ -2,24 +2,6 @@
 
 {{> header }}
 
-<!-- Render Account_Transaction table -->
-<table>
-    <thead>
-        <tr>
-            <th>Jxn ID</th>
-            <th>Account ID</th>
-            <th>Transaction ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each account_transactions}}
-        <tr>
-            <td>{{this.jxnID}}</td>
-            <td>{{this.accountID}}</td>
-            <td>{{this.transactionID}}</td>
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
+
 
 {{> footer }}
