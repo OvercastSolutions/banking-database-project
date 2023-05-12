@@ -110,7 +110,7 @@ CREATE TABLE Account_Transaction (
 -- INSERT TRANSACTION STATUS CATEGORIES
 INSERT INTO TransactionStatus (1, "Pending", "Transaction still pending");
 INSERT INTO TransactionStatus (2, "Completed", "Transaction has completed");
-INSERT INTO TransactionStatus (3, "Cancelled", "Transaction was cancelled");
+INSERT INTO TransactionStatus (3, "Canceled", "Transaction was canceled");
 
 -- INSERT CUSTOMERS
 INSERT INTO Customers (1, "John", "Doe", "johndoe@example.com", 123121234, "12 Nowhere Ave");
