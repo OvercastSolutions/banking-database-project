@@ -1,0 +1,62 @@
+<!-- Render Certificates table -->
+<table>
+    <thead>
+        <tr>
+            <th>Certificate ID</th>
+            <th>Owner ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Amount</th>
+            <th>Rate</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each certificates}}
+        <tr>
+            <td>{{this.certificateID}}</td>
+            <td>{{this.ownerID}}</td>
+            <td>{{this.startDate}}</td>
+            <td>{{this.endDate}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.rate}}</td>
+            <td>
+                <form action="/certificates/{{this.certificateID}}?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Create Certificate Form -->
+<form action="/certificates" method="POST">
+    <label for="ownerID">Owner ID</label>
+    <input type="number" id="ownerID" name="ownerID" required>
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" name="startDate" required>
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" name="endDate" required>
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" required>
+    <label for="rate">Rate</label>
+    <input type="number" id="rate" name="rate" required>
+    <button type="submit">Create Certificate</button>
+</form>
+
+<!-- Update Certificate Form -->
+<form action="/certificates/:id?_method=PUT" method="POST">
+    <label for="ownerID">Owner ID</label>
+    <input type="number" id="ownerID" name="ownerID" required>
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" name="startDate" required>
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" name="endDate" required>
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" required>
+    <label for="rate">Rate</label>
+    <input type="number" id="rate" name="rate" required>
+    <input type="hidden" id="id" name="id" required>
+    <button type="submit">Update Certificate</button>
+</form>

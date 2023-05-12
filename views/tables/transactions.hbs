@@ -1,0 +1,58 @@
+<!-- Render Transactions table -->
+<table>
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Source ID</th>
+            <th>Destination ID</th>
+            <th>Status ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each transactions}}
+        <tr>
+            <td>{{this.transactionID}}</td>
+            <td>{{this.amount}}</td>
+            <td>{{this.timestamp}}</td>
+            <td>{{this.sourceID}}</td>
+            <td>{{this.destID}}</td>
+            <td>{{this.statusID}}</td>
+            <td>
+                <form action="/transactions/{{this.transactionID}}?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Create Transaction Form -->
+<form action="/transactions" method="POST">
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" required>
+    <label for="sourceID">Source ID</label>
+    <input type="number" id="sourceID" name="sourceID" required>
+    <label for="destID">Destination ID</label>
+    <input type="number" id="destID" name="destID" required>
+    <label for="statusID">Status ID</label>
+    <input type="number" id="statusID" name="statusID" required>
+    <button type="submit">Create Transaction</button>
+</form>
+
+<!-- Update Transaction Form -->
+<form action="/transactions/:id?_method=PUT" method="POST">
+    <label for="amount">Amount</label>
+    <input type="number" id="amount" name="amount" required>
+    <label for="sourceID">Source ID</label>
+    <input type="number" id="sourceID" name="sourceID" required>
+    <label for="destID">Destination ID</label>
+    <input type="number" id="destID" name="destID" required>
+    <label for="statusID">Status ID</label>
+    <input type="number" id="statusID" name="statusID" required>
+    <input type="hidden" id="id" name="id" required>
+    <button type="submit">Update Transaction</button>
+</form>
