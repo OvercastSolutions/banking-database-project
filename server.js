@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 // Import route files
 const accountsRoutes = require('./routes/accounts');
 const transactionsRoutes = require('./routes/transactions');
-const transactionStatusRoutes = require('./routes/transactionsStatus');
+const transactionStatusRoutes = require('./routes/transactionStatus');
 const customersRoutes = require('./routes/customers');
 const certificatesRoutes = require('./routes/certificates');
 const customerAccountRoutes = require('./routes/customer_account');
@@ -20,14 +20,23 @@ const accountTransactionRoutes = require('./routes/account_transaction');
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Set up Handlebars
-app.engine('hbs', exphbs({extname: '.hbs'}));
+// Sets handlebars configurations
+const hbs = handlebars.create({
+    partialsDir: [
+        path.join(__dirname, 'views', 'partials'),
+        path.join(__dirname, 'views', 'tables')
+    ],
+    defaultLayout: 'main',
+    extname: '.hbs'
+});
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Use route files
 app.use('/accounts', accountsRoutes);
 app.use('/transactions', transactionsRoutes);
-app.use('/transactionsStatus', transactionStatusRoutes);
+app.use('/transactionStatus', transactionStatusRoutes);
 app.use('/customers', customersRoutes);
 app.use('/certificates', certificatesRoutes);
 app.use('/customer_account', customerAccountRoutes);
