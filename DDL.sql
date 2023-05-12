@@ -26,8 +26,6 @@ DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS Customer_Account;
 DROP TABLE IF EXISTS Account_Transaction;
 
--- DEFINE TABLES
-
 CREATE TABLE Accounts (
     accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
@@ -45,8 +43,8 @@ CREATE TABLE Transactions (
     statusID INT NOT NULL,
 
     PRIMARY KEY (transactionID),
-    FOREIGN KEY (sourceID) REFERENCES Accounts(accountID) ON UPDATE CASCADE,
-    FOREIGN KEY (destID) REFERENCES Accounts(accountID) ON UPDATE CASCADE
+    FOREIGN KEY (sourceID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (destID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE TransactionStatus (
@@ -80,16 +78,14 @@ CREATE TABLE Certificates (
     FOREIGN KEY (ownerID) REFERENCES Customers(customerID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- JOIN TABLE(S) FOR MANY-TO-MANY RELATIONSHIP(S)
-
 CREATE TABLE Customer_Account (
     jxnID INT UNIQUE NOT NULL AUTO_INCREMENT,
     customerID INT NOT NULL,
     accountID INT NOT NULL,
     
     PRIMARY KEY (jxnID),
-    FOREIGN KEY (customerID) REFERENCES Customers(customerID),
-    FOREIGN KEY (accountID) REFERENCES Accounts(accountID)
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE,
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON DELETE CASCADE
 );
 
 CREATE TABLE Account_Transaction (
@@ -98,9 +94,10 @@ CREATE TABLE Account_Transaction (
     transactionID INT NOT NULL,
     
     PRIMARY KEY (jxnID),
-    FOREIGN KEY (accountID) REFERENCES Accounts(accountID),
-    FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID)
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON DELETE CASCADE,
+    FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID) ON DELETE CASCADE
 );
+
 
 /*
 * Fill the tables with mock data
