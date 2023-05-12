@@ -1,3 +1,18 @@
+/*
+Documentation could be better inline but ran out of time for this draft.
+
+Sources consulted for NodeJS and SQL:
+
+Using MySQL:
+https://www.w3schools.com/nodejs/nodejs_mysql.asp
+
+Using npm express:
+https://expressjs.com/en/starter/hello-world.html
+
+Setting up handlebars:
+https://waelyasmina.medium.com/a-guide-into-using-handlebars-with-your-express-js-application-22b944443b65
+*/
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
@@ -16,6 +31,7 @@ const customersRoutes = require('./routes/customers');
 const certificatesRoutes = require('./routes/certificates');
 const customerAccountRoutes = require('./routes/customer_account');
 const accountTransactionRoutes = require('./routes/account_transaction');
+const { strictEqual } = require('assert');
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
