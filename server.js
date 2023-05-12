@@ -1,11 +1,12 @@
-// Server hosted on http://localhost:3000
-
 const express = require('express');
 const exphbs = require('express-handlebars');
-const mysql = require('mysql2/promise');
 const path = require('path');
 
 const app = express();
+
+// Import route files
+const accountsRoutes = require('./routes/accounts');
+// ... Import the rest of the route files here...
 
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -14,35 +15,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.engine('hbs', exphbs({extname: '.hbs'}));
 app.set('view engine', 'hbs');
 
-// Database connection configuration
-const dbConfig = require('./dbConfig.json');
-
-// Helper function to connect to the database
-async function connectToDatabase() {
-    return await mysql.createConnection(dbConfig);
-}
+// Use route files
+app.use('/accounts', accountsRoutes);
+// Insert the rest of the route files here...
 
 // Home page route
 app.get('/', (req, res) => {
     res.render('home');
-});
-
-// Table routes
-const tables = ['accounts',
-                'transactions',
-                'transactionstatus',
-                'customers',
-                'certificates',
-                'customer_account',
-                'account_transaction'];
-
-tables.forEach(table => {
-  app.get(`/${table}`, async (req, res) => {
-      const connection = await connectToDatabase();
-      const [rows] = await connection.query(`SELECT * FROM ${table}`);
-      res.render(`tables/${table}`, {rows});
-      connection.end();
-  });
 });
 
 // 404 catch-all route
