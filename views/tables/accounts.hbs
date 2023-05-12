@@ -1,0 +1,44 @@
+<!-- Render Accounts table -->
+<table>
+    <thead>
+        <tr>
+            <th>Account ID</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each accounts}}
+        <tr>
+            <td>{{this.accountID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.balance}}</td>
+            <td>
+                <form action="/accounts/{{this.accountID}}?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Create Account Form -->
+<form action="/accounts" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+    <label for="balance">Balance</label>
+    <input type="number" id="balance" name="balance" required>
+    <button type="submit">Create Account</button>
+</form>
+
+<!-- Update Account Form -->
+<form action="/accounts/:id?_method=PUT" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+    <label for="balance">Balance</label>
+    <input type="number" id="balance" name="balance" required>
+    <input type="hidden" id="id" name="id" required>
+    <button type="submit">Update Account</button>
+</form>

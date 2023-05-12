@@ -1,0 +1,44 @@
+<!-- Render TransactionStatus table -->
+<table>
+    <thead>
+        <tr>
+            <th>Status ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each transactionStatuses}}
+        <tr>
+            <td>{{this.statusID}}</td>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+            <td>
+                <form action="/transactionStatus/{{this.statusID}}?_method=DELETE" method="POST">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Create Status Form -->
+<form action="/transactionStatus" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" required>
+    <button type="submit">Create Status</button>
+</form>
+
+<!-- Update Status Form -->
+<form action="/transactionStatus/:id?_method=PUT" method="POST">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+    <label for="description">Description</label>
+    <input type="text" id="description" name="description" required>
+    <input type="hidden" id="id" name="id" required>
+    <button type="submit">Update Status</button>
+</form>
