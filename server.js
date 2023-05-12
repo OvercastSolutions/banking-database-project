@@ -12,8 +12,17 @@ const accountsRoutes = require('./routes/accounts');
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Set up Handlebars
-app.engine('hbs', exphbs({extname: '.hbs'}));
+const hbs = exphbs.create({
+    partialsDir: [
+        path.join(__dirname, 'views', 'partials'),
+        path.join(__dirname, 'views', 'tables')
+    ],
+    defaultLayout: 'main',
+    extname: '.hbs'
+});
+app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
+app.set('view', path.join(__dirname, 'views'));
 
 // Use route files
 app.use('/accounts', accountsRoutes);

@@ -5,6 +5,6 @@ node_modules/
 .env
 *.log
 
-# TODO
+
 # Ignore dbConfig.json
-# dbConfig.json
+dbConfig.json
