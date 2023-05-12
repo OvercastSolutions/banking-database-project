@@ -36,8 +36,9 @@ const { strictEqual } = require('assert');
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Sets handlebars configurations
-const hbs = exhbs.create({
+
+// Set up Handlebars
+const hbs = exphbs.create({
     partialsDir: [
         path.join(__dirname, 'views', 'partials'),
         path.join(__dirname, 'views', 'tables')
