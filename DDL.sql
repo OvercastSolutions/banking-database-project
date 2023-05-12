@@ -40,7 +40,7 @@ CREATE TABLE Accounts (
 CREATE TABLE Transactions (
     transactionID INT UNIQUE NOT NULL AUTO_INCREMENT,
     amount INT NOT NULL,
-    timestamp DATETIME NOT NULL,
+    tstamp DATETIME NOT NULL,
     sourceID INT NOT NULL,
     destID INT NOT NULL,
     statusID INT NOT NULL,

@@ -40,7 +40,7 @@ CREATE TABLE Accounts (
 CREATE TABLE Transactions (
     transactionID INT UNIQUE NOT NULL AUTO_INCREMENT,
     amount INT NOT NULL,
-    timestamp DATETIME NOT NULL,
+    tstamp DATETIME NOT NULL,
     sourceID INT NOT NULL,
     destID INT NOT NULL,
     statusID INT NOT NULL,
@@ -143,20 +143,20 @@ INSERT INTO Customer_Account (customerID, accountID) VALUES (4, 6); -- Adding Jo
 
 -- INSERT TRANSACTIONS
 --- John Doe deposits $1000 into his checking account
-INSERT INTO Transactions (amount, timestamp, sourceID, destID, statusID) VALUES (1000, '2021-04-05 12:00:00', 2, 4, 2);
+INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (1000, '2021-04-05 12:00:00', 2, 4, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (4, 1);
 --- John Doe transfers $900 from his checking to the joint checking account
-INSERT INTO Transactions (amount, timestamp, sourceID, destID, statusID) VALUES (900, '2021-04-05 12:05:00', 4, 3, 2);
+INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (900, '2021-04-05 12:05:00', 4, 3, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (3, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (4, 2);
 --- Jane Doe withdraws $100 from the joint checking account
-INSERT INTO Transactions (amount, timestamp, sourceID, destID, statusID) VALUES (100, '2021-04-06 12:10:00', 3, 1, 2);
+INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (100, '2021-04-06 12:10:00', 3, 1, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (3, 3);
 --- John Smith deposits $500 into his checking account
-INSERT INTO Transactions (amount, timestamp, sourceID, destID, statusID) VALUES (500, '2021-04-07 12:15:00', 2, 5, 2);
+INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (500, '2021-04-07 12:15:00', 2, 5, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (5, 4);
 --- Joe Jones deposits $80 into his checking account
-INSERT INTO Transactions (amount, timestamp, sourceID, destID, statusID) VALUES (80, '2021-04-09 12:20:00', 2, 6, 2);
+INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (80, '2021-04-09 12:20:00', 2, 6, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (6, 5);
 
 -- INSERT CERTIFICATES

@@ -1,3 +1,5 @@
+{{> header }}
+
 <!-- Render TransactionStatus table -->
 <table>
     <thead>
@@ -15,6 +17,7 @@
             <td>{{this.name}}</td>
             <td>{{this.description}}</td>
             <td>
+                <button class="edit-button" data-id="{{this.statusID}}" data-name="{{this.name}}" data-description="{{this.description}}">Edit</button>
                 <form action="/transactionStatus/{{this.statusID}}?_method=DELETE" method="POST">
                     <button type="submit">Delete</button>
                 </form>
@@ -34,11 +37,29 @@
 </form>
 
 <!-- Update Status Form -->
-<form action="/transactionStatus/:id?_method=PUT" method="POST">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
-    <label for="description">Description</label>
-    <input type="text" id="description" name="description" required>
-    <input type="hidden" id="id" name="id" required>
+<form id="update-form" action="/transactionStatus?_method=PUT" method="POST">
+    <label for="update-name">Name</label>
+    <input type="text" id="update-name" name="name" required>
+    <label for="update-description">Description</label>
+    <input type="text" id="update-description" name="description" required>
+    <input type="hidden" id="update-id" name="statusID" required>
     <button type="submit">Update Status</button>
 </form>
+
+{{> footer }}
+
+<script>
+    const updateForm = document.getElementById('update-form');
+    const updateIdInput = document.getElementById('update-id');
+    const updateNameInput = document.getElementById('update-name');
+    const updateDescriptionInput = document.getElementById('update-description');
+
+    document.querySelectorAll('.edit-button').forEach(button => {
+        button.addEventListener('click', event => {
+            updateIdInput.value = event.target.dataset.id;
+            updateNameInput.value = event.target.dataset.name;
+            updateDescriptionInput.value = event.target.dataset.description;
+            updateForm.action = `/transactionStatus/${event.target.dataset.id}?_method=PUT`;
+        });
+    });
+</script>
