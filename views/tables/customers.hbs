@@ -13,7 +13,7 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="customerTableBody">
         {{#each customers}}
         <tr>
             <td>{{this.customerID}}</td>
@@ -23,6 +23,7 @@
             <td>{{this.ssn}}</td>
             <td>{{this.address}}</td>
             <td>
+                <button class="edit-btn">Edit</button>
                 <form action="/customers/{{this.customerID}}?_method=DELETE" method="POST">
                     <button type="submit">Delete</button>
                 </form>
@@ -48,19 +49,51 @@
 </form>
 
 <!-- Update Customer Form -->
-<form action="/customers/:id?_method=PUT" method="POST">
-    <label for="fname">First Name</label>
-    <input type="text" id="fname" name="fname" required>
-    <label for="lname">Last Name</label>
-    <input type="text" id="lname" name="lname" required>
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required>
-    <label for="ssn">SSN</label>
-    <input type="text" id="ssn" name="ssn" required>
-    <label for="address">Address</label>
-    <input type="text" id="address" name="address" required>
-    <input type="hidden" id="id" name="id" required>
+<form id="updateForm" action="/customers/:id?_method=PUT" method="POST">
+    <label for="updateFname">First Name</label>
+    <input type="text" id="updateFname" name="fname" required>
+    <label for="updateLname">Last Name</label>
+    <input type="text" id="updateLname" name="lname" required>
+    <label for="updateEmail">Email</label>
+    <input type="email" id="updateEmail" name="email" required>
+    <label for="updateSSN">SSN</label>
+    <input type="text" id="updateSSN" name="ssn" required>
+    <label for="updateAddress">Address</label>
+    <input type="text" id="updateAddress" name="address" required>
+    <input type="hidden" id="customerId" name="id" required>
     <button type="submit">Update Customer</button>
 </form>
 
 {{> footer }}
+
+<script>
+    const customerRows = document.querySelectorAll('#customerTableBody tr');
+    const updateFname = document.getElementById('updateFname');
+    const updateLname = document.getElementById('updateLname');
+    const updateEmail = document.getElementById('updateEmail');
+    const updateSSN = document.getElementById('updateSSN');
+    const updateAddress = document.getElementById('updateAddress');
+    const customerId = document.getElementById('customerId');
+    const updateForm = document.getElementById('updateForm');
+
+    customerRows.forEach(row => {
+        const editButton = row.querySelector('.edit-btn');
+        editButton.addEventListener('click', () => {
+            const customerID = row.children[0].innerText;
+            const fname = row.children[1].innerText;
+            const lname = row.children[2].innerText;
+            const email = row.children[3].innerText;
+            const ssn = row.children[4].innerText;
+            const address = row.children[5].innerText;
+
+            updateFname.value = fname;
+            updateLname.value = lname;
+            updateEmail.value = email;
+            updateSSN.value = ssn;
+            updateAddress.value = address;
+            customerId.value = customerID;
+
+            updateForm.action = '/customers/' + customerID + '?_method=PUT';
+        });
+    });
+</script>

@@ -4,6 +4,10 @@ const path = require('path');
 
 const app = express();
 
+// These two lines allow us to access req.body
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Import route files
 const accountsRoutes = require('./routes/accounts');
 const transactionsRoutes = require('./routes/transactions');

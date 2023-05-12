@@ -1,7 +1,7 @@
 {{> header }}
 
 <!-- Render Certificates table -->
-<table>
+<table id="certificatesTable">
     <thead>
         <tr>
             <th>Certificate ID</th>
@@ -14,8 +14,8 @@
         </tr>
     </thead>
     <tbody>
-        {{#each certificates}}
-        <tr>
+        {{#each rows}}
+        <tr class="certificate-row" data-id="{{this.certificateID}}" data-owner="{{this.ownerID}}" data-start="{{this.startDate}}" data-end="{{this.endDate}}" data-amount="{{this.amount}}" data-rate="{{this.rate}}">
             <td>{{this.certificateID}}</td>
             <td>{{this.ownerID}}</td>
             <td>{{this.startDate}}</td>
@@ -23,6 +23,7 @@
             <td>{{this.amount}}</td>
             <td>{{this.rate}}</td>
             <td>
+                <button class="edit-btn">Edit</button>
                 <form action="/certificates/{{this.certificateID}}?_method=DELETE" method="POST">
                     <button type="submit">Delete</button>
                 </form>
@@ -48,19 +49,43 @@
 </form>
 
 <!-- Update Certificate Form -->
-<form action="/certificates/:id?_method=PUT" method="POST">
-    <label for="ownerID">Owner ID</label>
-    <input type="number" id="ownerID" name="ownerID" required>
-    <label for="startDate">Start Date</label>
-    <input type="date" id="startDate" name="startDate" required>
-    <label for="endDate">End Date</label>
-    <input type="date" id="endDate" name="endDate" required>
-    <label for="amount">Amount</label>
-    <input type="number" id="amount" name="amount" required>
-    <label for="rate">Rate</label>
-    <input type="number" id="rate" name="rate" required>
-    <input type="hidden" id="id" name="id" required>
+<form id="updateForm" action="/certificates/:id?_method=PUT" method="POST">
+    <label for="updateOwnerID">Owner ID</label>
+    <input type="number" id="updateOwnerID" name="ownerID" required>
+    <label for="updateStartDate">Start Date</label>
+    <input type="date" id="updateStartDate" name="startDate" required>
+    <label for="updateEndDate">End Date</label>
+    <input type="date" id="updateEndDate" name="endDate" required>
+    <label for="updateAmount">Amount</label>
+    <input type="number" id="updateAmount" name="amount" required>
+    <label for="updateRate">Rate</label>
+    <input type="number" id="updateRate" name="rate" required>
+    <input type="hidden" id="certificateId" name="id" required>
     <button type="submit">Update Certificate</button>
 </form>
 
 {{> footer }}
+
+<!-- Client-side JavaScript for populating the update form -->
+<script>
+    const certificateRows = document.querySelectorAll('.certificate-row');
+    const updateForm = document.getElementById('updateForm');
+    const updateOwnerID = document.getElementById('updateOwnerID');
+    const updateStartDate = document.getElementById('updateStartDate');
+    const updateEndDate = document.getElementById('updateEndDate');
+    const updateAmount = document.getElementById('updateAmount');
+    const updateRate = document.getElementById('updateRate');
+    const certificateId = document.getElementById('certificateId');
+
+    certificateRows.forEach(row => {
+        row.querySelector('.edit-btn').addEventListener('click', () => {
+            updateOwnerID.value = row.getAttribute('data-owner');
+            updateStartDate.value = moment(row.getAttribute('data-start')).format('YYYY-MM-DD');
+            updateEndDate.value = moment(row.getAttribute('data-end')).format('YYYY-MM-DD');
+            updateAmount.value = row.getAttribute('data-amount');
+            updateRate.value = row.getAttribute('data-rate');
+            certificateId.value = row.getAttribute('data-id');
+            updateForm.action = "/certificates/" + row.getAttribute('data-id') + "?_method=PUT";
+        });
+    });
+</script>

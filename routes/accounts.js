@@ -9,7 +9,7 @@ async function connectToDatabase() {
 
 router.get('/', async (req, res) => {
     const connection = await connectToDatabase();
-    const [rows] = await connection.query(`SELECT * FROM accounts`);
+    const [rows] = await connection.query(`SELECT * FROM Accounts`);
     res.render('tables/accounts', {rows});
     connection.end();
 });
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const { name, balance } = req.body;
     const connection = await connectToDatabase();
-    await connection.query(`INSERT INTO accounts (name, balance) VALUES (?, ?)`, [name, balance]);
+    await connection.query(`INSERT INTO Accounts (name, balance) VALUES (?, ?)`, [name, balance]);
     connection.end();
     res.redirect('/accounts');
 });
@@ -26,7 +26,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { name, balance } = req.body;
     const connection = await connectToDatabase();
-    await connection.query(`UPDATE accounts SET name = ?, balance = ? WHERE accountID = ?`, [name, balance, id]);
+    await connection.query(`UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?`, [name, balance, id]);
     connection.end();
     res.redirect('/accounts');
 });
@@ -34,7 +34,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     const connection = await connectToDatabase();
-    await connection.query(`DELETE FROM accounts WHERE accountID = ?`, [id]);
+    await connection.query(`DELETE FROM Accounts WHERE accountID = ?`, [id]);
     connection.end();
     res.redirect('/accounts');
 });
