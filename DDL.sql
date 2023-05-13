@@ -118,48 +118,48 @@ INSERT INTO Customers (fname, lname, email, ssn, addr) VALUES
 ("Joe", "Jones", "joejones@gmail.com", "987898789", "1 Anywhere Rd");
 
 -- INSERT SPECIAL ACCOUNTS
---- Withdrawal Account
+-- Withdrawal Account
 INSERT INTO Accounts (name) VALUES ("Withdrawal Account");
---- Deposit Account
+-- Deposit Account
 INSERT INTO Accounts (name) VALUES ("Deposit Account");
 
 -- INSERT CUSTOMER ACCOUNTS
---- Doe's Joint Checking
+-- Doe's Joint Checking
 INSERT INTO Accounts (name) VALUES ("Doe's Joint Checking");
 INSERT INTO Customer_Account (customerID, accountID) VALUES (1, 3); -- Adding John Doe to account
 INSERT INTO Customer_Account (customerID, accountID) VALUES (2, 3); -- Adding Jane Doe to account
---- John Doe's Checking
+-- John Doe's Checking
 INSERT INTO Accounts (name) VALUES ("John Doe's Checking");
 INSERT INTO Customer_Account (customerID, accountID) VALUES (1, 4); -- Adding John Doe to account
---- John Smith's Checking
+-- John Smith's Checking
 INSERT INTO Accounts (name) VALUES ("John Smith's Checking");
 INSERT INTO Customer_Account (customerID, accountID) VALUES (3, 5); -- Adding John Smith to account
---- Joe's Checking
+-- Joe's Checking
 INSERT INTO Accounts (name) VALUES ("Joe's Checking");
 INSERT INTO Customer_Account (customerID, accountID) VALUES (4, 6); -- Adding Joe Jones to account
 
 -- INSERT TRANSACTIONS
---- John Doe deposits $1000 into his checking account
+-- John Doe deposits $1000 into his checking account
 INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (1000, '2021-04-05 12:00:00', 2, 4, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (4, 1);
---- John Doe transfers $900 from his checking to the joint checking account
+-- John Doe transfers $900 from his checking to the joint checking account
 INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (900, '2021-04-05 12:05:00', 4, 3, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (3, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (4, 2);
---- Jane Doe withdraws $100 from the joint checking account
+-- Jane Doe withdraws $100 from the joint checking account
 INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (100, '2021-04-06 12:10:00', 3, 1, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (3, 3);
---- John Smith deposits $500 into his checking account
+-- John Smith deposits $500 into his checking account
 INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (500, '2021-04-07 12:15:00', 2, 5, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (5, 4);
---- Joe Jones deposits $80 into his checking account
+-- Joe Jones deposits $80 into his checking account
 INSERT INTO Transactions (amount, tstamp, sourceID, destID, statusID) VALUES (80, '2021-04-09 12:20:00', 2, 6, 2);
 INSERT INTO Account_Transaction (accountID, transactionID) VALUES (6, 5);
 
 -- INSERT CERTIFICATES
---- John Doe's Certificate
+-- John Doe's Certificate
 INSERT INTO Certificates (ownerID, startDate, endDate, amount, rate) VALUES (1, '2021-04-05', '2022-04-05', 1000, 1);
---- John Smith's Certificate
+-- John Smith's Certificate
 INSERT INTO Certificates (ownerID, startDate, endDate, amount, rate) VALUES (3, '2021-05-05', '2022-05-05', 1000, 1);
---- Joe Jones' Certificate
+-- Joe Jones' Certificate
 INSERT INTO Certificates (ownerID, startDate, endDate, amount, rate) VALUES (4, '2021-06-05', '2022-06-05', 1000, 1);
