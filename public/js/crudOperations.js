@@ -1,100 +1,113 @@
-// CRUD Operations
-document.addEventListener('DOMContentLoaded', () => {
-    const accountsTable = document.querySelector('#accounts-table tbody');
-    const addBtn = document.querySelector('#add-btn');
-    const createForm = document.querySelector('#create-account-form');
-    const updateForm = document.querySelector('#update-account-form');
-    const deleteForm = document.querySelector('#delete-account-form');
+document.addEventListener("DOMContentLoaded", function () {
+    let entityName;
+    // identify the entity from the form ids
+    document.querySelectorAll('form').forEach(form => {
+        const id = form.getAttribute('id');
+        if (id.startsWith('create-')) {
+            entityName = id.replace('create-', '');
+        }
+    });
 
-    let accounts = [...document.querySelectorAll('#accounts-table tbody tr')];
-    let selectedAccountId;
+    // No entityName found, probably a page where we don't need CRUD operations
+    if (!entityName) return;
 
-    function resetForm(form) {
-        form.reset();
-        form.style.display = 'none';
-    }
+    // Manipulate DOM for Create Operation
+    const createForm = document.getElementById(`create-${entityName}-form`);
+    const addButton = document.getElementById('add-btn');
 
-    // Create Account
-    addBtn.addEventListener('click', () => {
-        resetForm(updateForm);
-        resetForm(deleteForm);
+    addButton.addEventListener('click', function () {
         createForm.style.display = 'block';
     });
 
-    createForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-
-        const accountId = Date.now(); // generate unique ID based on current time
-        const name = document.querySelector('#create-account-name').value;
-        const balance = document.querySelector('#create-account-balance').value;
+    createForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
         const newRow = document.createElement('tr');
-        newRow.innerHTML = `<td>${accountId}</td>
-                            <td>${name}</td>
-                            <td>${balance}</td>
-                            <td>
-                                <button class="editBtn">Edit</button>
-                                <button class="deleteBtn">Delete</button>
-                            </td>`;
-        accountsTable.appendChild(newRow);
-        accounts.push(newRow);
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'deleteBtn';
 
-        addEventListenersToRow(newRow);
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.className = 'editBtn';
 
-        resetForm(createForm);
+        const actionTd = document.createElement('td');
+        actionTd.appendChild(editBtn);
+        actionTd.appendChild(deleteBtn);
+
+        let i = 0;
+        document.querySelectorAll(`#create-${entityName}-form input`).forEach(input => {
+            const newTd = document.createElement('td');
+            newTd.textContent = input.value;
+            newRow.appendChild(newTd);
+            input.value = '';
+            i++;
+        });
+
+        newRow.appendChild(actionTd);
+        document.querySelector('tbody').appendChild(newRow);
+        createForm.style.display = 'none';
     });
 
-    // Update Account
-    accounts.forEach(addEventListenersToRow);
-
-    function addEventListenersToRow(row) {
-        const editBtn = row.querySelector('.editBtn');
-        const deleteBtn = row.querySelector('.deleteBtn');
-
-        editBtn.addEventListener('click', () => {
-            resetForm(createForm);
-            resetForm(deleteForm);
-
-            selectedAccountId = row.querySelector('td').textContent;
-
-            document.querySelector('#update-account-id').value = selectedAccountId;
-            document.querySelector('#update-account-name').value = row.children[1].textContent;
-            document.querySelector('#update-account-balance').value = row.children[2].textContent;
-
+    // Manipulate DOM for Update Operation
+    const updateForm = document.getElementById(`update-${entityName}-form`);
+    document.body.addEventListener('click', function (e) {
+        if (e.target.className === 'editBtn') {
+            const row = e.target.parentNode.parentNode;
+            const inputs = document.querySelectorAll(`#update-${entityName}-form input`);
+            let i = 0;
+            for (const cell of row.cells) {
+                if (i < inputs.length) {
+                    inputs[i].value = cell.textContent;
+                }
+                i++;
+            }
             updateForm.style.display = 'block';
-        });
+        }
+    });
 
-        updateForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+    updateForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-            if (selectedAccountId === row.querySelector('td').textContent) {
-                row.children[1].textContent = document.querySelector('#update-account-name').value;
-                row.children[2].textContent = document.querySelector('#update-account-balance').value;
+        const inputs = document.querySelectorAll(`#update-${entityName}-form input`);
+        const id = document.getElementById('update-id').value;
+
+        document.querySelectorAll('tbody tr').forEach(row => {
+            if (row.cells[0].textContent == id) {
+                let i = 0;
+                for (const cell of row.cells) {
+                    if (i < inputs.length) {
+                        cell.textContent = inputs[i].value;
+                    }
+                    i++;
+                }
             }
-
-            resetForm(updateForm);
         });
 
-        // Delete Account
-        deleteBtn.addEventListener('click', () => {
-            resetForm(createForm);
-            resetForm(updateForm);
+        updateForm.style.display = 'none';
+    });
 
-            selectedAccountId = row.querySelector('td').textContent;
-
-            document.querySelector('#delete-account-id').value = selectedAccountId;
-
+    // Manipulate DOM for Delete Operation
+    const deleteForm = document.getElementById(`delete-${entityName}-form`);
+    document.body.addEventListener('click', function (e) {
+        if (e.target.className === 'deleteBtn') {
+            const row = e.target.parentNode.parentNode;
+            document.getElementById('delete-id').value = row.cells[0].textContent;
             deleteForm.style.display = 'block';
-        });
+        }
+    });
 
-        deleteForm.addEventListener('submit', (event) => {
-            event.preventDefault();
+    deleteForm.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-            if (selectedAccountId === row.querySelector('td').textContent) {
-                accountsTable.removeChild(row);
+        const id = document.getElementById('delete-id').value;
+
+        document.querySelectorAll('tbody tr').forEach(row => {
+            if (row.cells[0].textContent == id) {
+                row.remove();
             }
-
-            resetForm(deleteForm);
         });
-    }
+
+        deleteForm.style.display = 'none';
+    });
 });
