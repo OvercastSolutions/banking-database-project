@@ -1,13 +1,3 @@
-/*
-TODO 
-RESET SERVER.JS TO ONLY WORK IN FRONT END AND REDO NPM INSTALLS
-USE /views TO RENDER PAGES
-`home.hbs` is the home page
-/views/tables are partials to be completed by header and footer files
-404 FUNCTIONALITY OPTIONAL
-MOVE ALL .HBS INTO ONE FILE IF ABOSLUTELY NECESSARY
-*/
-
 // Import required modules
 const express = require('express');
 const exphbs = require('express-handlebars');
@@ -29,25 +19,13 @@ const app = express();
 const hbs = exphbs.create({ 
     extname: '.hbs', 
     defaultLayout: 'main', 
-    layoutsDir: path.join(__dirname, 'views/layouts')
+    layoutsDir: path.join(__dirname, 'views/layouts'),
+    partialsDir: path.join(__dirname, 'views/partials')
 });
 
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
-
-// Manually register partials
-// TODO: Replace this messy ChatGPT solution with a better one
-const partialsDir = path.join(__dirname, 'views/partials');
-fs.readdirSync(partialsDir).forEach(function(filename) {
-    var matches = /^([^.]+).hbs$/.exec(filename);
-    if (!matches) {
-        return;
-    }
-    var name = matches[1];
-    var template = fs.readFileSync(partialsDir + '/' + filename, 'utf8');
-    hbs.handlebars.registerPartial(name, template);
-});
 
 // Set up the public directory to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -55,6 +33,56 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Define the route for the home page
 app.get('/', (req, res) => {
   res.render('home', { title: 'Banking Database Project' });
+});
+
+// Define routes for other pages
+app.get('/accounts', (req, res) => {
+  pool.query('SELECT * FROM Accounts', (error, results) => {
+    if (error) throw error;
+    res.render('partials/accounts', { accounts: results });
+  });
+});
+
+app.get('/transactions', (req, res) => {
+  pool.query('SELECT * FROM Transactions', (error, results) => {
+    if (error) throw error;
+    res.render('partials/transactions', { transactions: results });
+  });
+});
+
+app.get('/transactionstatus', (req, res) => {
+  pool.query('SELECT * FROM TransactionStatus', (error, results) => {
+    if (error) throw error;
+    res.render('partials/transactionStatus', { transactionStatuses: results });
+  });
+});
+
+app.get('/customers', (req, res) => {
+  pool.query('SELECT * FROM Customers', (error, results) => {
+    if (error) throw error;
+    res.render('partials/customers', { customers: results });
+  });
+});
+
+app.get('/certificates', (req, res) => {
+  pool.query('SELECT * FROM Certificates', (error, results) => {
+    if (error) throw error;
+    res.render('partials/certificates', { certificates: results });
+  });
+});
+
+app.get('/customer_account', (req, res) => {
+  pool.query('SELECT * FROM Customer_Account', (error, results) => {
+    if (error) throw error;
+    res.render('partials/customer_account', { customerAccounts: results });
+  });
+});
+
+app.get('/account_transaction', (req, res) => {
+  pool.query('SELECT * FROM Account_Transaction', (error, results) => {
+    if (error) throw error;
+    res.render('partials/account_transaction', { accountTransactions: results });
+  });
 });
 
 // Define the route for the 404 page
@@ -67,17 +95,3 @@ const port = process.env.PORT || 5382;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
-// TODO: Gracefully close the MySQL connection when the server is stopped
-/* TODO: GET THIS TO WORK
-process.on('SIGINT', () => {
-  connection.end((err) => {
-    if (err) {
-      console.error('Error closing the database connection:', err);
-    } else {
-      console.log('Database connection closed');
-    }
-    process.exit();
-  });
-});
-*/
