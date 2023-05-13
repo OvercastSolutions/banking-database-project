@@ -13,6 +13,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
+const mysql = require('mysql');
 
 // Read the database configuration from the private JSON file
 const dbConfig = JSON.parse(fs.readFileSync('dbConfig.json', 'utf8'));
@@ -31,11 +32,13 @@ const hbs = exphbs.create({
     defaultLayout: 'main', 
     layoutsDir: path.join(__dirname, 'views/layouts')
 });
+
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Manually register partials
+// TODO: Replace this messy ChatGPT solution with a better one
 const partialsDir = path.join(__dirname, 'views/partials');
 fs.readdirSync(partialsDir).forEach(function(filename) {
     var matches = /^([^.]+).hbs$/.exec(filename);
@@ -65,3 +68,17 @@ const port = process.env.PORT || 5382;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+// TODO: Gracefully close the MySQL connection when the server is stopped
+/* TODO: GET THIS TO WORK
+process.on('SIGINT', () => {
+  connection.end((err) => {
+    if (err) {
+      console.error('Error closing the database connection:', err);
+    } else {
+      console.log('Database connection closed');
+    }
+    process.exit();
+  });
+});
+*/
