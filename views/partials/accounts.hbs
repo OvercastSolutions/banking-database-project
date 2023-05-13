@@ -1,0 +1,20 @@
+<h1>Accounts</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each accounts}}
+            <tr>
+                <td>{{this.accountID}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.balance}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
