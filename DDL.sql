@@ -18,13 +18,14 @@
 -- `Certificates`, `Customers`, `Accounts`,
 -- `TransactionStatus`, `Transactions`
 
+DROP TABLE IF EXISTS Account_Transaction;
+DROP TABLE IF EXISTS Customer_Account;
 DROP TABLE IF EXISTS Certificates;
+DROP TABLE IF EXISTS Transactions;
+DROP TABLE IF EXISTS TransactionStatus;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Accounts;
-DROP TABLE IF EXISTS TransactionStatus;
-DROP TABLE IF EXISTS Transactions;
-DROP TABLE IF EXISTS Customer_Account;
-DROP TABLE IF EXISTS Account_Transaction;
+
 
 CREATE TABLE Accounts (
     accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -61,7 +62,7 @@ CREATE TABLE Customers (
     lname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     ssn VARCHAR(9) NOT NULL,
-    address VARCHAR(255) NOT NULL,
+    addr VARCHAR(255) NOT NULL,
     
     PRIMARY KEY (customerID)
 );
@@ -110,7 +111,7 @@ INSERT INTO TransactionStatus (name, description) VALUES
 ("Canceled", "Transaction was canceled");
 
 -- INSERT CUSTOMERS
-INSERT INTO Customers (fname, lname, email, ssn, address) VALUES
+INSERT INTO Customers (fname, lname, email, ssn, addr) VALUES
 ("John", "Doe", "johndoe@example.com", "123121234", "12 Nowhere Ave"),
 ("Jane", "Doe", "janedoe@example.com", "321214321", "12 Nowhere Ave"),
 ("John", "Smith", "johnsmith@example.com", "456454567", "99 Somewhere St"),
