@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/stef-timmermans/banking-database-project/issues"
   },
-  "homepage": "https://github.com/stef-timmermans/banking-database-project#readme"
+  "homepage": "https://github.com/stef-timmermans/banking-database-project#readme",
+  "dependencies": {
+    "express": "^4.16.0",
+    "express-handlebars": "^3.0.0",
+    "forever": "^1.0.0",
+    "mysql": "^2.16.0"
+  }
 }
