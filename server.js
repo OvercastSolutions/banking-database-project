@@ -1,19 +1,16 @@
 /*
-
 TODO 
-
 RESET SERVER.JS TO ONLY WORK IN FRONT END AND REDO NPM INSTALLS
-
 USE /views TO RENDER PAGES
 `home.hbs` is the home page
 /views/tables are partials to be completed by header and footer files
-
 404 FUNCTIONALITY OPTIONAL
 MOVE ALL .HBS INTO ONE FILE IF ABOSLUTELY NECESSARY
 */
+
 // Import required modules
 const express = require('express');
-const xhbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
 const mysql = require('mysql');
@@ -39,10 +36,26 @@ connection.connect((err) => {
 const app = express();
 
 // Set up the Handlebars view engine
-const hbs = xhbs.create({ extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname, 'views/layouts') });
-app.engine('hbs', hbs.engine);
-app.set('view engine', 'hbs');
+const hbs = exphbs.create({ 
+    extname: '.hbs', 
+    defaultLayout: 'main', 
+    layoutsDir: path.join(__dirname, 'views/layouts')
+});
+app.engine('.hbs', hbs.engine);
+app.set('view engine', '.hbs');
 app.set('views', path.join(__dirname, 'views'));
+
+// Manually register partials
+const partialsDir = path.join(__dirname, 'views/partials');
+fs.readdirSync(partialsDir).forEach(function(filename) {
+    var matches = /^([^.]+).hbs$/.exec(filename);
+    if (!matches) {
+        return;
+    }
+    var name = matches[1];
+    var template = fs.readFileSync(partialsDir + '/' + filename, 'utf8');
+    hbs.handlebars.registerPartial(name, template);
+});
 
 // Set up the public directory to serve static files
 app.use(express.static(path.join(__dirname, 'public')));
