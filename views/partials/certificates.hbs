@@ -1,0 +1,26 @@
+<h1>Certificates</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Certificate ID</th>
+            <th>Owner ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Amount</th>
+            <th>Rate</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each certificates}}
+            <tr>
+                <td>{{this.certificateID}}</td>
+                <td>{{this.ownerID}}</td>
+                <td>{{this.startDate}}</td>
+                <td>{{this.endDate}}</td>
+                <td>{{this.amount}}</td>
+                <td>{{this.rate}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

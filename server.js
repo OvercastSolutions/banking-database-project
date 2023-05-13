@@ -53,7 +53,7 @@ app.get('/transactions', (req, res) => {
 app.get('/transactionstatus', (req, res) => {
   pool.query('SELECT * FROM TransactionStatus', (error, results) => {
     if (error) throw error;
-    res.render('partials/transactionStatus', { transactionStatuses: results });
+    res.render('partials/transactionStatus', { transactionStatus: results });
   });
 });
 
@@ -74,14 +74,14 @@ app.get('/certificates', (req, res) => {
 app.get('/customer_account', (req, res) => {
   pool.query('SELECT * FROM Customer_Account', (error, results) => {
     if (error) throw error;
-    res.render('partials/customer_account', { customerAccounts: results });
+    res.render('partials/customer_account', { customer_account: results });
   });
 });
 
 app.get('/account_transaction', (req, res) => {
   pool.query('SELECT * FROM Account_Transaction', (error, results) => {
     if (error) throw error;
-    res.render('partials/account_transaction', { accountTransactions: results });
+    res.render('partials/account_transaction', { account_transaction: results });
   });
 });
 
