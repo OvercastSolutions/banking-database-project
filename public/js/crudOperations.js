@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('form').forEach(form => {
         const id = form.getAttribute('id');
         if (id.startsWith('create-')) {
-            entityName = id.replace('create-', '');
+            entityName = id.replace('create-', '').replace('-form', '');
         }
     });
 
