@@ -13,7 +13,6 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
-const mysql = require('mysql');
 
 // Read the database configuration from the private JSON file
 const dbConfig = JSON.parse(fs.readFileSync('dbConfig.json', 'utf8'));
