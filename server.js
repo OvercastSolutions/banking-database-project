@@ -35,6 +35,11 @@ app.get('/', (req, res) => {
   res.render('home', { title: 'Banking Database Project' });
 });
 
+// Define another route for the home page
+app.get('/index.html', (req, res) => {
+  res.render('home', { title: 'Banking Database Project' });
+})
+
 // Define routes for other pages
 app.get('/accounts', (req, res) => {
   pool.query('SELECT * FROM Accounts', (error, results) => {
