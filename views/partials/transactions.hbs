@@ -1,0 +1,26 @@
+<h1>Transactions</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Transaction ID</th>
+            <th>Amount</th>
+            <th>Timestamp</th>
+            <th>Source ID</th>
+            <th>Destination ID</th>
+            <th>Status ID</th>
+         </tr>
+    </thead>
+    <tbody>
+        {{#each transactions}}
+            <tr>
+                <td>{{this.transactionID}}</td>
+                <td>{{this.amount}}</td>
+                <td>{{this.tstamp}}</td>
+                <td>{{this.sourceID}}</td>
+                <td>{{this.destID}}</td>
+                <td>{{this.statusID}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

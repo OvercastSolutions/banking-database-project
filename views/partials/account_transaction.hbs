@@ -1,0 +1,21 @@
+<!-- READ ONLY PAGE -->
+<h1>Account_Transaction</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Junction ID</th>
+            <th>Account ID</th>
+            <th>Transaction ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each account_transaction}}
+            <tr>
+                <td>{{this.jxnID}}</td>
+                <td>{{this.accountID}}</td>
+                <td>{{this.transactionID}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

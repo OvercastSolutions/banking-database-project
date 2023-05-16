@@ -1,0 +1,20 @@
+<h1>Transaction Status</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Status ID</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each transactionStatus}}
+            <tr>
+                <td>{{this.statusID}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -13,5 +13,3 @@ npm install forever@1.0.0
 
 ## To run forever
 forever start server.js
-
-

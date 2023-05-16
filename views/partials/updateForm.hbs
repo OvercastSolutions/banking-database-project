@@ -1,0 +1,9 @@
+<form id="update-{{entityName}}-form" action="/{{entityName}}/update" method="post" style="display: none;">
+    <label for="id">ID:</label><br>
+    <input type="text" id="update-id" name="id" required><br>
+    {{#each fields}}
+        <label for="{{this}}">{{this}}:</label><br>
+        <input type="text" id="update-{{this}}" name="{{this}}" required><br>
+    {{/each}}
+    <input type="submit" value="Update {{entityName}}">
+</form>

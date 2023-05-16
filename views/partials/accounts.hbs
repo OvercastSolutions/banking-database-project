@@ -1,0 +1,38 @@
+<h1>Accounts</h1>
+
+<button id="add-btn">Add Account</button>
+
+<table>
+    <thead>
+        <tr>
+            <th>Account ID</th>
+            <th>Name</th>
+            <th>Balance</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each accounts}}
+            <tr>
+                <td>{{this.accountID}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.balance}}</td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                    <button class="deleteBtn">Delete</button>
+                </td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Include Create Form -->
+{{> createForm entityName='account' fields=['name', 'balance']}}
+
+<!-- Include Update Form -->
+{{> updateForm entityName='account' fields=['name', 'balance']}}
+
+<!-- Include Delete Form -->
+{{> deleteForm entityName='account'}}
+
+<script src="/js/crudOperations.js"></script>

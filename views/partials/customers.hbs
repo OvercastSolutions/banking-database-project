@@ -1,0 +1,26 @@
+<h1>Customers</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>SSN</th>
+            <th>Address</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each customers}}
+            <tr>
+                <td>{{this.customerID}}</td>
+                <td>{{this.fname}}</td>
+                <td>{{this.lname}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.ssn}}</td>
+                <td>{{this.addr}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
