@@ -2,7 +2,7 @@
 
 <button id="add-btn">Add Account</button>
 
-<table>
+<table id="accounts-table">
     <thead>
         <tr>
             <th>Account ID</th>
@@ -18,21 +18,37 @@
                 <td>{{this.name}}</td>
                 <td>{{this.balance}}</td>
                 <td>
-                    <button class="editBtn">Edit</button>
-                    <button class="deleteBtn">Delete</button>
+                    <button class="edit-btn" data-id="{{this.accountID}}">Edit</button>
+                    <button class="delete-btn" data-id="{{this.accountID}}">Delete</button>
                 </td>
             </tr>
         {{/each}}
     </tbody>
 </table>
 
-<!-- Include Create Form -->
-{{> createForm entityName='account' fields=['name', 'balance']}}
+<!-- Add Account Form, initially hidden -->
+<form id="add-form" style="display: none;">
+    <!-- other inputs -->
+    <button type="button" id="add-cancel-input">Cancel</button>
+    <input type="submit" id="add-confirm-input" value="Submit">
+</form>
 
-<!-- Include Update Form -->
-{{> updateForm entityName='account' fields=['name', 'balance']}}
+<!-- Edit Account Form, initially hidden -->
+<form id="edit-form" style="display: none;">
+    <!-- other inputs -->
+    <button type="button" id="edit-cancel-input">Cancel</button>
+    <input type="submit" id="edit-confirm-input" value="Submit">
+</form>
 
-<!-- Include Delete Form -->
-{{> deleteForm entityName='account'}}
+<!-- Delete Account Form, initially hidden -->
+<form id="delete-form" style="display: none;">
+    <!-- other inputs -->
+    <button type="button" id="delete-cancel-input">Cancel</button>
+    <input type="submit" id="delete-confirm-input" value="Submit">
+</form>
 
-<script src="/js/crudOperations.js"></script>
+<!-- Include jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Include script(s) file -->
+<script src="/js/accounts.js"></script>
