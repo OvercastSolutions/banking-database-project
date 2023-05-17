@@ -1,14 +1,11 @@
 <h1>Accounts</h1>
 
-<button id="add-btn">Add Account</button>
-
-<table>
+<table id="accounts-table">
     <thead>
         <tr>
             <th>Account ID</th>
             <th>Name</th>
             <th>Balance</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -17,22 +14,52 @@
                 <td>{{this.accountID}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.balance}}</td>
-                <td>
-                    <button class="editBtn">Edit</button>
-                    <button class="deleteBtn">Delete</button>
-                </td>
             </tr>
         {{/each}}
     </tbody>
 </table>
 
-<!-- Include Create Form -->
-{{> createForm entityName='account' fields=['name', 'balance']}}
+<!-- Add Account Form -->
+<form id="add-form">
+    Add Account
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="add-accountID-input" name="accountID" required>
 
-<!-- Include Update Form -->
-{{> updateForm entityName='account' fields=['name', 'balance']}}
+    <label for="name">Name:</label>
+    <input type="text" id="add-name-input" name="name" required>
 
-<!-- Include Delete Form -->
-{{> deleteForm entityName='account'}}
+    <label for="balance">Balance:</label>
+    <input type="number" id="add-balance-input" name="balance" required>
 
-<script src="/js/crudOperations.js"></script>
+    <button type="button" id="add-cancel-input">Cancel</button>
+    <input type="submit" id="add-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Account Form -->
+<form id="edit-form">
+    Edit Account
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="edit-accountID-input" name="accountID" required>
+
+    <label for="name">Name:</label>
+    <input type="text" id="edit-name-input" name="name">
+
+    <label for="balance">Balance:</label>
+    <input type="number" id="edit-balance-input" name="balance">
+
+    <button type="button" id="edit-cancel-input">Cancel</button>
+    <input type="submit" id="edit-confirm-input" value="Submit">
+</form>
+
+<!-- Delete Account Form -->
+<form id="delete-form">
+    Delete Account
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="delete-accountID-input" name="accountID" required>
+
+    <button type="button" id="delete-cancel-input">Cancel</button>
+    <input type="submit" id="delete-confirm-input" value="Submit">
+</form>
+
+<!-- Include script file -->
+<script src="/js/accounts.js"></script>
