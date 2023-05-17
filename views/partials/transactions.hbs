@@ -1,15 +1,15 @@
 <h1>Transactions</h1>
 
-<table>
+<table id="transactions-table">
     <thead>
         <tr>
             <th>Transaction ID</th>
             <th>Amount</th>
             <th>Timestamp</th>
-            <th>Source ID</th>
-            <th>Destination ID</th>
-            <th>Status ID</th>
-         </tr>
+            <td>Source ID</td>
+            <td>Destination ID</td>
+            <td>Status</td>
+        </tr>
     </thead>
     <tbody>
         {{#each transactions}}
@@ -24,3 +24,66 @@
         {{/each}}
     </tbody>
 </table>
+
+<!-- Add Transaction Form -->
+<form id="add-form">
+    Add Transaction
+    <label for="transactionID">Transaction ID:</label>
+    <input type="number" id="add-transactionID-input" name="transactionID" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="add-amount-input" name="amount" required>
+
+    <label for="tstamp">Timestamp:</label>
+    <input type="datetime-local" id="add-tstamp-input" name="tstamp" required>
+
+    <label for="sourceID">Source ID:</label>
+    <input type="number" id="add-sourceID-input" name="sourceID" required>
+
+    <label for="destID">Destination ID:</label>
+    <input type="number" id="add-destID-input" name="destID" required>
+
+    <label for="statusID">Status ID:</label>
+    <input type="number" id="add-statusID-input" name="statusID" required>
+
+    <button type="button" id="add-cancel-input">Cancel</button>
+    <input type="submit" id="add-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Account Form -->
+<form id="edit-form">
+    Edit Transaction
+    <label for="transactionID">Transaction ID:</label>
+    <input type="number" id="edit-transactionID-input" name="transactionID" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="edit-amount-input" name="amount" required>
+
+    <label for="tstamp">Timestamp:</label>
+    <input type="datetime-local" id="edit-tstamp-input" name="tstamp" required>
+
+    <label for="sourceID">Source ID:</label>
+    <input type="number" id="edit-sourceID-input" name="sourceID" required>
+
+    <label for="destID">Destination ID:</label>
+    <input type="number" id="edit-destID-input" name="destID" required>
+
+    <label for="statusID">Status ID:</label>
+    <input type="number" id="edit-statusID-input" name="statusID" required>
+
+    <button type="button" id="edit-cancel-input">Cancel</button>
+    <input type="submit" id="edit-confirm-input" value="Submit">
+</form>
+
+<!-- Delete Account Form -->
+<form id="delete-form">
+    Delete Transaction
+    <label for="transactionID">Transaction ID:</label>
+    <input type="number" id="delete-transactionID-input" name="transactionID" required>
+
+    <button type="button" id="delete-cancel-input">Cancel</button>
+    <input type="submit" id="delete-confirm-input" value="Submit">
+</form>
+
+<!-- Include script file -->
+<script src="/js/transactions.js"></script>

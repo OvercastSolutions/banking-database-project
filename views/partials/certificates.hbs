@@ -1,6 +1,6 @@
 <h1>Certificates</h1>
 
-<table>
+<table id="certificates-table">
     <thead>
         <tr>
             <th>Certificate ID</th>
@@ -24,3 +24,57 @@
         {{/each}}
     </tbody>
 </table>
+
+<!-- Add Certificate Form -->
+<form id="add-form">
+    Add Certificate
+    <label for="certificateID">Certificate ID:</label>
+    <input type="number" id="add-certificateID-input" name="certificateID" required>
+
+    <label for="ownerID">Owner ID:</label>
+    <input type="number" id="add-ownerID-input" name="ownerID" required>
+
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="add-startDate-input" name="startDate" required>
+
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="add-endDate-input" name="endDate" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="add-amount-input" name="amount" required>
+
+    <label for="rate">Rate:</label>
+    <input type="number" id="add-rate-input" name="rate" required>
+
+    <button type="button" id="add-cancel-input">Cancel</button>
+    <input type="submit" id="add-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Certificate Form -->
+<form id="edit-form">
+    Edit Certificate
+    <label for="certificateID">Certificate ID:</label>
+    <input type="number" id="edit-certificateID-input" name="certificateID" required>
+
+    <label for="ownerID">Owner ID:</label>
+    <input type="number" id="edit-ownerID-input" name="ownerID">
+
+    <label for="startDate">Start Date:</label>
+    <input type="datetime-local" id="edit-startDate-input" name="startDate">
+
+    <label for="endDate">End Date:</label>
+    <input type="datetime-local" id="edit-endDate-input" name="endDate">
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="edit-amount-input" name="amount">
+
+    <label for="rate">Rate:</label>
+    <input type="number" id="edit-rate-input" name="rate">
+
+    <button type="button" id="edit-cancel-input">Cancel</button>
+    <input type="submit" id="edit-confirm-input" value="Submit">
+</form>
+
+
+<!-- Include script file -->
+<script src="/js/certificates.js"></script>

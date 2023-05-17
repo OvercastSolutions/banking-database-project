@@ -1,6 +1,6 @@
-<h1>Transaction Status</h1>
+<h1>Transaction Statuses</h1>
 
-<table>
+<table id="transactionStatus-table">
     <thead>
         <tr>
             <th>Status ID</th>
@@ -18,3 +18,48 @@
         {{/each}}
     </tbody>
 </table>
+
+<!-- Add Transaction Status Form -->
+<form id="add-form">
+    Add Transaction Status
+    <label for="statusID">Status ID:</label>
+    <input type="number" id="add-statusID-input" name="statusID" required>
+
+    <label for="name">Name:</label>
+    <input type="text" id="add-name-input" name="name" required>
+
+    <label for="description">Description:</label>
+    <input type="text" id="add-description-input" name="description" required>
+
+    <button type="button" id="add-cancel-input">Cancel</button>
+    <input type="submit" id="add-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Transaction Status Form -->
+<form id="edit-form">
+    Edit Transaction Status
+    <label for="statusID">Status ID:</label>
+    <input type="number" id="edit-statusID-input" name="statusID" required>
+
+    <label for="name">Name:</label>
+    <input type="text" id="edit-name-input" name="name">
+
+    <label for="description">Description:</label>
+    <input type="text" id="edit-description-input" name="description">
+
+    <button type="button" id="edit-cancel-input">Cancel</button>
+    <input type="submit" id="edit-confirm-input" value="Submit">
+</form>
+
+<!-- Delete Transaction Status Form -->
+<form id="delete-form">
+    Delete Transaction Status
+    <label for="statusID">Status ID:</label>
+    <input type="number" id="delete-statusID-input" name="statusID" required>
+
+    <button type="button" id="delete-cancel-input">Cancel</button>
+    <input type="submit" id="delete-confirm-input" value="Submit">
+</form>
+
+<!-- Include script file -->
+<script src="/js/transactionStatus.js"></script>
