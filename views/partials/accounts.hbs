@@ -8,7 +8,6 @@
             <th>Account ID</th>
             <th>Name</th>
             <th>Balance</th>
-            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -17,38 +16,31 @@
                 <td>{{this.accountID}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.balance}}</td>
-                <td>
-                    <button class="edit-btn" data-id="{{this.accountID}}">Edit</button>
-                    <button class="delete-btn" data-id="{{this.accountID}}">Delete</button>
-                </td>
             </tr>
         {{/each}}
     </tbody>
 </table>
 
 <!-- Add Account Form, initially hidden -->
-<form id="add-form" style="display: none;">
+<form id="add-form">
     <!-- other inputs -->
     <button type="button" id="add-cancel-input">Cancel</button>
     <input type="submit" id="add-confirm-input" value="Submit">
 </form>
 
 <!-- Edit Account Form, initially hidden -->
-<form id="edit-form" style="display: none;">
+<form id="edit-form">
     <!-- other inputs -->
     <button type="button" id="edit-cancel-input">Cancel</button>
     <input type="submit" id="edit-confirm-input" value="Submit">
 </form>
 
 <!-- Delete Account Form, initially hidden -->
-<form id="delete-form" style="display: none;">
+<form id="delete-form">
     <!-- other inputs -->
     <button type="button" id="delete-cancel-input">Cancel</button>
     <input type="submit" id="delete-confirm-input" value="Submit">
 </form>
 
-<!-- Include jQuery -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Include script(s) file -->
+<!-- Include script file -->
 <script src="/js/accounts.js"></script>
