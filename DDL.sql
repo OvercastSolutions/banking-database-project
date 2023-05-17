@@ -76,7 +76,7 @@ CREATE TABLE Certificates (
     rate INT NOT NULL,
     
     PRIMARY KEY (certificateID),
-    FOREIGN KEY (ownerID) REFERENCES Customers(customerID) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (ownerID) REFERENCES Customers(customerID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Customer_Account (
