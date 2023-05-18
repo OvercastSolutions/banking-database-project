@@ -1,0 +1,31 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table {
+  margin-bottom: 20px;  /* Add space at the end of the table */
+}
+
+form label {
+  display: inline-block;  /* This will make the label display inline with its input */
+  margin-right: 10px;
+}
+
+form input[type="number"], 
+form input[type="text"], 
+form input[type="datetime-local"] {
+  display: inline-block;  /* This will make each input display inline with its label */
+  margin-bottom: 10px;  /* Add space below each input */
+}
+
+form input[type="submit"],
+form button {
+  display: inline-block;  /* This will make each button display inline with the other */
+  margin-top: 10px;  /* Add space above each button */
+  margin-bottom: 20px;  /* Add space below each button */
+}
+
+form button {
+  margin-left: 10px;  /* Add space to the left of the cancel button */
+}
