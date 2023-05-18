@@ -21,7 +21,11 @@ form input[type="datetime-local"] {
 
 form input[type="submit"],
 form button {
-  display: block;  /* This will make each button take a whole line */
+  display: inline-block;  /* This will make each button display inline with the other */
   margin-top: 10px;  /* Add space above each button */
-  margin-bottom: 10px;  /* Add space below each button */
+  margin-bottom: 20px;  /* Add space below each button */
+}
+
+form button {
+  margin-left: 10px;  /* Add space to the left of the cancel button */
 }
