@@ -1,18 +1,27 @@
 table, th, td {
-    border: 1px solid black; /* Add borders */
-    border-collapse: collapse;
-  }
-  
-  table {
-    margin-bottom: 20px;  /* Add space at the end of the table */
-  }
-  
-  form label, 
-  form input[type="number"], 
-  form input[type="text"], 
-  form input[type="datetime-local"], 
-  form input[type="submit"],
-  form button {
-    display: block;  /* This will make each element take a whole line */
-    margin-bottom: 10px;  /* Add space between form elements */
-  }
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table {
+  margin-bottom: 20px;  /* Add space at the end of the table */
+}
+
+form label {
+  display: inline-block;  /* This will make the label display inline with its input */
+  margin-right: 10px;
+}
+
+form input[type="number"], 
+form input[type="text"], 
+form input[type="datetime-local"] {
+  display: inline-block;  /* This will make each input display inline with its label */
+  margin-bottom: 10px;  /* Add space below each input */
+}
+
+form input[type="submit"],
+form button {
+  display: block;  /* This will make each button take a whole line */
+  margin-top: 10px;  /* Add space above each button */
+  margin-bottom: 10px;  /* Add space below each button */
+}
