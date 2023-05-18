@@ -44,6 +44,20 @@ INSERT INTO Certificates (startDate, endDate, amount, rate, ownerID)
 VALUES (:startDateInput, :endDateInput, :amountInput, :rateInput, :ownerIDInput);
 
 --
+-- SELECT STATEMENTS FOR TABLES
+--
+
+SELECT * FROM Accounts WHERE accountID = :accountIDInput;
+
+SELECT * FROM Transactions WHERE transactionID = :transactionIDInput;
+
+SELECT * FROM TransactionStatus WHERE statusID = :statusIDInput;
+
+SELECT * FROM Customers WHERE customerID = :customerIDInput;
+
+SELECT * FROM Certificates WHERE certificateID = :certificateIDInput;
+
+--
 -- UPDATE STATEMENTS FOR TABLES
 --
 
