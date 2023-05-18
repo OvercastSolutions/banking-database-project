@@ -1,4 +1,18 @@
 table, th, td {
-    border: 1px solid black;
+    border: 1px solid black; /* Add borders */
     border-collapse: collapse;
+  }
+  
+  table {
+    margin-bottom: 20px;  /* Add space at the end of the table */
+  }
+  
+  form label, 
+  form input[type="number"], 
+  form input[type="text"], 
+  form input[type="datetime-local"], 
+  form input[type="submit"],
+  form button {
+    display: block;  /* This will make each element take a whole line */
+    margin-bottom: 10px;  /* Add space between form elements */
   }
