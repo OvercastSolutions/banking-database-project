@@ -1,5 +1,4 @@
-<!-- READ ONLY PAGE (NO FORMS) -->
-<h1>Account_Transaction (READ ONLY)</h1>
+<h1>Account_Transaction</h1>
 
 <table>
     <thead>
@@ -19,3 +18,68 @@
         {{/each}}
     </tbody>
 </table>
+<h1>Account_Transaction</h1>
+
+<!-- Add Account Transaction Form -->
+<form id="add-transaction-form">
+    Add Account Transaction
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="add-jxnID-input" name="jxnID" required>
+
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="add-accountID-input" name="accountID" required>
+
+    <label for="transactionID">Transaction ID:</label>
+    <input type="number" id="add-transactionID-input" name="transactionID" required>
+
+    <button type="button" id="add-transaction-cancel-input">Cancel</button>
+    <input type="submit" id="add-transaction-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Account Transaction Form -->
+<form id="edit-transaction-form">
+    Edit Account Transaction
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="edit-jxnID-input" name="jxnID" required>
+
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="edit-accountID-input" name="accountID">
+
+    <label for="transactionID">Transaction ID:</label>
+    <input type="number" id="edit-transactionID-input" name="transactionID">
+
+    <button type="button" id="edit-transaction-cancel-input">Cancel</button>
+    <input type="submit" id="edit-transaction-confirm-input" value="Submit">
+</form>
+
+<!-- Delete Account Transaction Form -->
+<form id="delete-transaction-form">
+    Delete Account Transaction
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="delete-jxnID-input" name="jxnID" required>
+
+    <button type="button" id="delete-transaction-cancel-input">Cancel</button>
+    <input type="submit" id="delete-transaction-confirm-input" value="Submit">
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Junction ID</th>
+            <th>Account ID</th>
+            <th>Transaction ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each account_transaction}}
+            <tr>
+                <td>{{this.jxnID}}</td>
+                <td>{{this.accountID}}</td>
+                <td>{{this.transactionID}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Include script file -->
+<script src="/js/account_transaction.js"></script>

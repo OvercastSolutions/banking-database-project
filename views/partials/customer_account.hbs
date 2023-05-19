@@ -1,5 +1,4 @@
-<!-- READ ONLY PAGE (NO FORMS) -->
-<h1>Customer_Account (READ ONLY)</h1>
+<h1>Customer_Account</h1>
 
 <table>
     <thead>
@@ -19,3 +18,68 @@
         {{/each}}
     </tbody>
 </table>
+<h1>Customer_Account</h1>
+
+<!-- Add Customer Account Form -->
+<form id="add-customer-account-form">
+    Add Customer Account
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="add-jxnID-input" name="jxnID" required>
+
+    <label for="customerID">Customer ID:</label>
+    <input type="number" id="add-customerID-input" name="customerID" required>
+
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="add-accountID-input" name="accountID" required>
+
+    <button type="button" id="add-customer-account-cancel-input">Cancel</button>
+    <input type="submit" id="add-customer-account-confirm-input" value="Submit">
+</form>
+
+<!-- Edit Customer Account Form -->
+<form id="edit-customer-account-form">
+    Edit Customer Account
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="edit-jxnID-input" name="jxnID" required>
+
+    <label for="customerID">Customer ID:</label>
+    <input type="number" id="edit-customerID-input" name="customerID">
+
+    <label for="accountID">Account ID:</label>
+    <input type="number" id="edit-accountID-input" name="accountID">
+
+    <button type="button" id="edit-customer-account-cancel-input">Cancel</button>
+    <input type="submit" id="edit-customer-account-confirm-input" value="Submit">
+</form>
+
+<!-- Delete Customer Account Form -->
+<form id="delete-customer-account-form">
+    Delete Customer Account
+    <label for="jxnID">Junction ID:</label>
+    <input type="number" id="delete-jxnID-input" name="jxnID" required>
+
+    <button type="button" id="delete-customer-account-cancel-input">Cancel</button>
+    <input type="submit" id="delete-customer-account-confirm-input" value="Submit">
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Junction ID</th>
+            <th>Customer ID</th>
+            <th>Account ID</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each customer_account}}
+            <tr>
+                <td>{{this.jxnID}}</td>
+                <td>{{this.customerID}}</td>
+                <td>{{this.accountID}}</td>
+            </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<!-- Include script file -->
+<script src="/js/customer_account.js"></script>
