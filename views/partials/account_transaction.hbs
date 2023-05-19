@@ -61,24 +61,5 @@
     <input type="submit" id="delete-transaction-confirm-input" value="Submit">
 </form>
 
-<table>
-    <thead>
-        <tr>
-            <th>Junction ID</th>
-            <th>Account ID</th>
-            <th>Transaction ID</th>
-        </tr>
-    </thead>
-    <tbody>
-        {{#each account_transaction}}
-            <tr>
-                <td>{{this.jxnID}}</td>
-                <td>{{this.accountID}}</td>
-                <td>{{this.transactionID}}</td>
-            </tr>
-        {{/each}}
-    </tbody>
-</table>
-
 <!-- Include script file -->
 <script src="/js/account_transaction.js"></script>
