@@ -26,13 +26,20 @@ DROP TABLE IF EXISTS TransactionStatus;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Accounts;
 
-
 CREATE TABLE Accounts (
     accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
     balance INT NOT NULL DEFAULT 0,
     
     PRIMARY KEY (accountID)
+);
+
+CREATE TABLE TransactionStatus (
+    statusID INT UNIQUE NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    
+    PRIMARY KEY (statusID)
 );
 
 CREATE TABLE Transactions (
@@ -47,14 +54,6 @@ CREATE TABLE Transactions (
     FOREIGN KEY (sourceID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (destID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (statusID) REFERENCES TransactionStatus(statusID) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
-CREATE TABLE TransactionStatus (
-    statusID INT UNIQUE NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    
-    PRIMARY KEY (statusID)
 );
 
 CREATE TABLE Customers (
