@@ -1,7 +1,7 @@
 /* 
 * File: DML.sql
 * Authors: Stef Timmermans, Derek Williams
-* Date: 05/12/2023
+* Date: 05/23/2023
 * Description:
 *   This file contains the data manipulation queries
 *   for the database. Database mocks the potential

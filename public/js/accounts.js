@@ -1,72 +1,83 @@
-const express = require('express');
-const mysql = require('mysql2/promise');
+// Get DOM elements
+const addForm = document.getElementById("add-form");
+const editForm = document.getElementById("edit-form");
+const deleteForm = document.getElementById("delete-form");
+const accountsTable = document.getElementById("accounts-table");
 
-const router = express.Router();
+// Function to add a new account
+function addAccount(accountID, name, balance) {
+  const newRow = document.createElement("tr");
 
-// Import your database configuration
-const dbConfig = require('../dbConfig.json');
+  newRow.innerHTML = `
+    <td>${accountID}</td>
+    <td>${name}</td>
+    <td>${balance}</td>
+  `;
 
-// Create a new connection pool using the imported configuration
-const pool = mysql.createPool(dbConfig);
+  accountsTable.querySelector("tbody").appendChild(newRow);
+}
 
-// Add a new account
-router.post('/', async (req, res) => {
-  const { accountID, name, balance } = req.body;
+// Function to edit an existing account
+function editAccount(accountID, newName, newBalance) {
+  const rows = accountsTable.querySelectorAll("tbody tr");
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
-
-    const [result] = await connection.execute('INSERT INTO Accounts (name, balance) VALUES (?, ?)', [name, balance]);
-
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account added successfully', accountID: result.insertId });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to add account' });
-    console.error(error);
+  for (const row of rows) {
+    if (row.children[0].textContent === accountID) {
+      if (newName) row.children[1].textContent = newName;
+      if (newBalance) row.children[2].textContent = newBalance;
+      break;
+    }
   }
+}
+
+// Function to delete an account
+function deleteAccount(accountID) {
+  const rows = accountsTable.querySelectorAll("tbody tr");
+
+  for (const row of rows) {
+    if (row.children[0].textContent === accountID) {
+      row.remove();
+      break;
+    }
+  }
+}
+
+// Add account form submit event
+addForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const accountID = addForm["accountID"].value;
+  const name = addForm["name"].value;
+  const balance = addForm["balance"].value;
+
+  addAccount(accountID, name, balance);
+
+  // Reset the form
+  addForm.reset();
 });
 
-// Edit an existing account
-router.put('/', async (req, res) => {
-  const { accountID, name, balance } = req.body;
+// Edit account form submit event
+editForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+  const accountID = editForm["accountID"].value;
+  const newName = editForm["name"].value;
+  const newBalance = editForm["balance"].value;
 
-    await connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
+  editAccount(accountID, newName, newBalance);
 
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account updated successfully' });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to update account' });
-    console.error(error);
-  }
+  // Reset the form
+  editForm.reset();
 });
 
-// Delete an account
-router.delete('/', async (req, res) => {
-  const { accountID } = req.body;
+// Delete account form submit event
+deleteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+  const accountID = deleteForm["accountID"].value;
 
-    await connection.execute('DELETE FROM Accounts WHERE accountID = ?', [accountID]);
+  deleteAccount(accountID);
 
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to delete account' });
-    console.error(error);
-  }
+  // Reset the form
+  deleteForm.reset();
 });
-
-module.exports = router;
