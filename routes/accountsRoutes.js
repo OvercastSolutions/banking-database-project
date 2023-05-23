@@ -10,7 +10,7 @@ const dbConfig = require('../dbConfig.json');
 const pool = mysql.createPool(dbConfig);
 
 // Add a new account
-router.post('/', async (req, res) => {
+router.post('/', async function(req, res) {
   const { accountID, name, balance } = req.body;
 
   try {
@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
 });
 
 // Edit an existing account
-router.put('/', async (req, res) => {
+router.put('/', async function(req, res) {
   const { accountID, name, balance } = req.body;
 
   try {
@@ -50,7 +50,7 @@ router.put('/', async (req, res) => {
 });
 
 // Delete an account
-router.delete('/', async (req, res) => {
+router.delete('/', async function(req, res) {
   const { accountID } = req.body;
 
   try {
