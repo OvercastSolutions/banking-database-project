@@ -4,6 +4,8 @@ const exphbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
 
+const accountsRouter = require('./routes/accountsRoutes'); 
+
 // Read the database configuration from the private JSON file
 const dbConfig = JSON.parse(fs.readFileSync('dbConfig.json', 'utf8'));
 
@@ -14,6 +16,9 @@ var pool = mysql.createPool(dbConfig);
 
 // Initialize the Express app
 const app = express();
+
+// Add routes to support CRUD operations on accounts
+app.use('/api/accounts', accountsRouter);
 
 // Set up the Handlebars view engine
 const hbs = exphbs.create({ 

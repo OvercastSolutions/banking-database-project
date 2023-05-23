@@ -1,72 +1,103 @@
-const express = require('express');
-const mysql = require('mysql2/promise');
+// Get DOM elements
+const addForm = document.getElementById("add-form");
+const editForm = document.getElementById("edit-form");
+const deleteForm = document.getElementById("delete-form");
+const accountsTable = document.getElementById("accounts-table");
 
-const router = express.Router();
+// Function to add a new account
+function addAccount(accountID, name, balance) {
+  fetch('/api/accounts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      accountID: accountID,
+      name: name,
+      balance: balance
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
 
-// Import your database configuration
-const dbConfig = require('../dbConfig.json');
+// Function to edit an existing account
+function editAccount(accountID, newName, newBalance) {
+  fetch('/api/accounts', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      accountID: accountID,
+      name: newName,
+      balance: newBalance
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
 
-// Create a new connection pool using the imported configuration
-const pool = mysql.createPool(dbConfig);
+// Function to delete an account
+function deleteAccount(accountID) {
+  fetch('/api/accounts', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      accountID: accountID
+    })
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+}
 
-// Add a new account
-router.post('/', async (req, res) => {
-  const { accountID, name, balance } = req.body;
+// Add account form submit event
+addForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+  const accountID = addForm["accountID"].value;
+  const name = addForm["name"].value;
+  const balance = addForm["balance"].value;
 
-    const [result] = await connection.execute('INSERT INTO Accounts (name, balance) VALUES (?, ?)', [name, balance]);
+  addAccount(accountID, name, balance);
 
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account added successfully', accountID: result.insertId });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to add account' });
-    console.error(error);
-  }
+  // Reset the form
+  addForm.reset();
 });
 
-// Edit an existing account
-router.put('/', async (req, res) => {
-  const { accountID, name, balance } = req.body;
+// Edit account form submit event
+editForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+  const accountID = editForm["accountID"].value;
+  const newName = editForm["name"].value;
+  const newBalance = editForm["balance"].value;
 
-    await connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
+  editAccount(accountID, newName, newBalance);
 
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account updated successfully' });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to update account' });
-    console.error(error);
-  }
+  // Reset the form
+  editForm.reset();
 });
 
-// Delete an account
-router.delete('/', async (req, res) => {
-  const { accountID } = req.body;
+// Delete account form submit event
+deleteForm.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-  try {
-    const connection = await pool.getConnection();
-    await connection.beginTransaction();
+  const accountID = deleteForm["accountID"].value;
 
-    await connection.execute('DELETE FROM Accounts WHERE accountID = ?', [accountID]);
+  deleteAccount(accountID);
 
-    await connection.commit();
-    connection.release();
-
-    res.json({ status: 'success', message: 'Account deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ status: 'error', message: 'Failed to delete account' });
-    console.error(error);
-  }
+  // Reset the form
+  deleteForm.reset();
 });
-
-module.exports = router;
