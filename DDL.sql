@@ -86,8 +86,8 @@ CREATE TABLE Customer_Account (
     accountID INT NOT NULL,
     
     PRIMARY KEY (jxnID),
-    FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON DELETE CASCADE,
-    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON DELETE CASCADE
+    FOREIGN KEY (customerID) REFERENCES Customers(customerID) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE Account_Transaction (
@@ -96,8 +96,8 @@ CREATE TABLE Account_Transaction (
     transactionID INT NOT NULL,
     
     PRIMARY KEY (jxnID),
-    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON DELETE CASCADE,
-    FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID) ON DELETE CASCADE
+    FOREIGN KEY (accountID) REFERENCES Accounts(accountID) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
