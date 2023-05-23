@@ -1,83 +1,72 @@
-// Get DOM elements
-const addForm = document.getElementById("add-form");
-const editForm = document.getElementById("edit-form");
-const deleteForm = document.getElementById("delete-form");
-const accountsTable = document.getElementById("accounts-table");
+const express = require('express');
+const mysql = require('mysql2/promise');
 
-// Function to add a new account
-function addAccount(accountID, name, balance) {
-  const newRow = document.createElement("tr");
+const router = express.Router();
 
-  newRow.innerHTML = `
-    <td>${accountID}</td>
-    <td>${name}</td>
-    <td>${balance}</td>
-  `;
+// Import your database configuration
+const dbConfig = require('../dbConfig.json');
 
-  accountsTable.querySelector("tbody").appendChild(newRow);
-}
+// Create a new connection pool using the imported configuration
+const pool = mysql.createPool(dbConfig);
 
-// Function to edit an existing account
-function editAccount(accountID, newName, newBalance) {
-  const rows = accountsTable.querySelectorAll("tbody tr");
+// Add a new account
+router.post('/', async (req, res) => {
+  const { accountID, name, balance } = req.body;
 
-  for (const row of rows) {
-    if (row.children[0].textContent === accountID) {
-      if (newName) row.children[1].textContent = newName;
-      if (newBalance) row.children[2].textContent = newBalance;
-      break;
-    }
+  try {
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    const [result] = await connection.execute('INSERT INTO Accounts (name, balance) VALUES (?, ?)', [name, balance]);
+
+    await connection.commit();
+    connection.release();
+
+    res.json({ status: 'success', message: 'Account added successfully', accountID: result.insertId });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: 'Failed to add account' });
+    console.error(error);
   }
-}
+});
 
-// Function to delete an account
-function deleteAccount(accountID) {
-  const rows = accountsTable.querySelectorAll("tbody tr");
+// Edit an existing account
+router.put('/', async (req, res) => {
+  const { accountID, name, balance } = req.body;
 
-  for (const row of rows) {
-    if (row.children[0].textContent === accountID) {
-      row.remove();
-      break;
-    }
+  try {
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+
+    await connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
+
+    await connection.commit();
+    connection.release();
+
+    res.json({ status: 'success', message: 'Account updated successfully' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: 'Failed to update account' });
+    console.error(error);
   }
-}
-
-// Add account form submit event
-addForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const accountID = addForm["accountID"].value;
-  const name = addForm["name"].value;
-  const balance = addForm["balance"].value;
-
-  addAccount(accountID, name, balance);
-
-  // Reset the form
-  addForm.reset();
 });
 
-// Edit account form submit event
-editForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+// Delete an account
+router.delete('/', async (req, res) => {
+  const { accountID } = req.body;
 
-  const accountID = editForm["accountID"].value;
-  const newName = editForm["name"].value;
-  const newBalance = editForm["balance"].value;
+  try {
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
 
-  editAccount(accountID, newName, newBalance);
+    await connection.execute('DELETE FROM Accounts WHERE accountID = ?', [accountID]);
 
-  // Reset the form
-  editForm.reset();
+    await connection.commit();
+    connection.release();
+
+    res.json({ status: 'success', message: 'Account deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: 'Failed to delete account' });
+    console.error(error);
+  }
 });
 
-// Delete account form submit event
-deleteForm.addEventListener("submit", (e) => {
-  e.preventDefault();
-
-  const accountID = deleteForm["accountID"].value;
-
-  deleteAccount(accountID);
-
-  // Reset the form
-  deleteForm.reset();
-});
+module.exports = router;
