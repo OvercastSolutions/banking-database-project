@@ -3,6 +3,7 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const path = require('path');
 const fs = require('fs');
+const bodyParser = require('body-parser');
 
 const accountsRouter = require('./routes/accountsRoutes'); 
 
@@ -16,6 +17,12 @@ var pool = mysql.createPool(dbConfig);
 
 // Initialize the Express app
 const app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// parse application/json
+app.use(bodyParser.json());
 
 // Add routes to support CRUD operations on accounts
 app.use('/api/accounts', accountsRouter);
