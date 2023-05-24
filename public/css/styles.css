@@ -1,12 +1,61 @@
+/* Reset margins and padding, and set box-sizing to border-box */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Set up the body with a Roboto font, a darker background, and layout it out as a flex container */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f3f6;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+/* Styling the header and footer with a lighter background */
+header, footer {
+  background-color: #e8eef2;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Styling navigation links */
+nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+/* Adding a blue tone to navigation links on hover */
+nav a:hover {
+  color: #3178C6; 
+}
+
+/* Pushing the footer to the bottom */
+footer {
+  margin-top: auto; 
+}
+
+/* Color styling for headers */
+h1, h2 {
+  color: #444;
+}
+
+/* Styling tables and their components */
 table, th, td {
-  border: 1px solid black;
+  border: 1px solid #444;
   border-collapse: collapse;
 }
 
 table {
+  width: 100%;
   margin-bottom: 20px;  /* Add space at the end of the table */
 }
 
+/* Styling form labels and inputs */
 form label {
   display: inline-block;  /* This will make the label display inline with its input */
   margin-right: 10px;
@@ -19,11 +68,17 @@ form input[type="datetime-local"] {
   margin-bottom: 10px;  /* Add space below each input */
 }
 
+/* Styling buttons and submit inputs */
 form input[type="submit"],
 form button {
   display: inline-block;  /* This will make each button display inline with the other */
   margin-top: 10px;  /* Add space above each button */
   margin-bottom: 20px;  /* Add space below each button */
+  background-color: #3178C6; /* Make buttons blue */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
 }
 
 form button {
