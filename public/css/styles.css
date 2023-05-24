@@ -13,6 +13,7 @@ body {
   background-color: #f0f3f6;
   font-family: 'Roboto', sans-serif;
   color: #333;
+  padding: 0 20px;  /* Add padding on the left and right */
 }
 
 /* Styling the header and footer with a lighter background */
@@ -37,6 +38,12 @@ nav a:hover {
 /* Pushing the footer to the bottom */
 footer {
   margin-top: auto; 
+}
+
+/* Adding a class for centered titles with padding */
+.title {
+  text-align: center;
+  padding: 20px 0;
 }
 
 /* Color styling for headers */
@@ -79,6 +86,12 @@ form button {
   border: none;
   padding: 10px 15px;
   cursor: pointer;
+}
+
+/* Darken buttons on hover */
+form input[type="submit"]:hover,
+form button:hover {
+  background-color: #255a85; /* Darker shade of blue */
 }
 
 form button {
