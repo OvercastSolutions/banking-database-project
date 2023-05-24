@@ -57,8 +57,8 @@ function editAccount(accountID, newName, newBalance) {
     const rows = accountsTable.querySelectorAll("tbody tr");
     for (const row of rows) {
       if (row.children[0].textContent === accountID) {
-        if(newName == null || newName == undefined || newName == '') row.children[1].textContent = data.name || newName;
-        if(newBalance == null || newBalance == undefined || newBalance == '') row.children[2].textContent = data.balance || newBalance;
+        if(!(newName == null || newName == undefined || newName == '')) row.children[1].textContent = newName;
+        if(!(newBalance == null || newBalance == undefined || newBalance == '')) row.children[2].textContent = newBalance;
         break;
       }
     }
