@@ -1,7 +1,7 @@
 {
   "name": "banking-database-project",
   "version": "1.0.0",
-  "description": "For Oregon State University, CS 340: Introduction to Databases. Term project mocking a potential database for a local bank in Corvallis, Oregon. Program developed by Stef Timmermans and Derek Williams.",
+  "description": "Banking database project using Handlebars, JavaScript, and SQL.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,16 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stef-timmermans/banking-database-project.git"
+    "url": "git+https://github.com/OvercastSolutions/banking-database-project.git"
   },
-  "author": "Stef Timmermans, Derek Williams",
-  "license": "ISC",
+  "keywords": [
+    "HTML",
+    "Handlebars",
+    "SQL",
+    "Database"
+  ],
+  "author": "Stef Timmermans & Derek Williams",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stef-timmermans/banking-database-project/issues"
+    "url": "https://github.com/OvercastSolutions/banking-database-project/issues"
   },
-  "homepage": "https://github.com/stef-timmermans/banking-database-project#readme",
+  "homepage": "https://github.com/OvercastSolutions/banking-database-project#readme",
   "dependencies": {
-    "body-parser": "^1.20.2",
     "express": "^4.16.0",
     "express-handlebars": "^3.0.0",
     "forever": "^1.0.0",
