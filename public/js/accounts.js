@@ -5,7 +5,7 @@ const deleteForm = document.getElementById("delete-form");
 const accountsTable = document.getElementById("accounts-table");
 
 // Function to add a new account
-function addAccount(accountID, name, balance) {
+function addAccount(name, balance) {
   // Send POST request to /api/accounts
   fetch('/api/accounts', {
     method: 'POST',
@@ -13,7 +13,6 @@ function addAccount(accountID, name, balance) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      accountID: accountID,
       name: name,
       balance: balance
     })
@@ -24,7 +23,7 @@ function addAccount(accountID, name, balance) {
     // Add new account to the table
     const newRow = document.createElement("tr");
     newRow.innerHTML = `
-      <td>${accountID}</td>
+      <td>${data.accountID}</td>
       <td>${name}</td>
       <td>${balance}</td>
     `;
@@ -35,7 +34,6 @@ function addAccount(accountID, name, balance) {
   });
 }
 
-  
 // Function to edit an existing account
 function editAccount(accountID, newName, newBalance) {
   // Send PUT request to /api/accounts
@@ -67,7 +65,6 @@ function editAccount(accountID, newName, newBalance) {
     console.error('Error:', error);
   });
 }
-
 
 // Function to delete an account
 function deleteAccount(accountID) {
@@ -102,26 +99,24 @@ function deleteAccount(accountID) {
 addForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const accountID = addForm["accountID"].value;
   const name = addForm["name"].value;
   const balance = addForm["balance"].value;
 
-  addAccount(accountID, name, balance);
+  addAccount(name, balance);
 
   // Reset the form
   addForm.reset();
 });
-
 
 // Edit account form submit event
 editForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const accountID = editForm["accountID"].value;
-  const newName = editForm["name"].value;
-  const newBalance = editForm["balance"].value;
+  const name = editForm["name"].value;
+  const balance = editForm["balance"].value;
 
-  editAccount(accountID, newName, newBalance);
+  editAccount(accountID, name, balance);
 
   // Reset the form
   editForm.reset();
