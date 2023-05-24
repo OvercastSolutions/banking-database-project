@@ -83,9 +83,9 @@ router.put('/', function(req, res) {
   pool.getConnection().then(function(connection) {
     connection.beginTransaction().then(function() {
       let connectionPromise;
-      if(name == null || name == undefined) {
+      if(name == null || name == undefined || name == '') {
         connectionPromise = connection.execute('UPDATE Accounts SET balance = ? WHERE accountID = ?', [balance, accountID]);
-      } else if(balance == null || balance == undefined) {
+      } else if(balance == null || balance == undefined || balance == '') {
         connectionPromise = connection.execute('UPDATE Accounts SET name = ? WHERE accountID = ?', [name, accountID]);
       } else {
         connectionPromise = connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
