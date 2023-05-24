@@ -13,12 +13,6 @@ body {
   background-color: #f0f3f6;
   font-family: 'Roboto', sans-serif;
   color: #333;
-  padding: 0;  /* No padding on the body */
-}
-
-/* Add padding on the left and right to all direct children of body except header and footer */
-body > *:not(header):not(footer) {
-  padding: 0 20px;
 }
 
 /* Styling the header and footer with a lighter background */
@@ -26,6 +20,13 @@ header, footer {
   background-color: #e8eef2;
   padding: 10px;
   text-align: center;
+}
+
+/* Add padding on the left and right to the body content */
+.body-content {
+  padding: 0 20px;
+  overflow-y: auto;  /* Add a scrollbar only when necessary */
+  flex-grow: 1; /* This will allow body-content to take up remaining space */
 }
 
 /* Styling navigation links */
@@ -38,11 +39,6 @@ nav a {
 /* Adding a blue tone to navigation links on hover */
 nav a:hover {
   color: #3178C6; 
-}
-
-/* Pushing the footer to the bottom */
-footer {
-  margin-top: auto; 
 }
 
 /* Adding a class for centered titles with padding */
@@ -67,7 +63,7 @@ table {
   margin-bottom: 20px;  /* Add space at the end of the table */
 }
 
- /* Make table cells white */
+/* Make table cells white */
 th, td {
   background-color: #ffffff;
 }
