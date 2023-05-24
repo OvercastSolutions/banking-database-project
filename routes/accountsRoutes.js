@@ -82,7 +82,15 @@ router.put('/', function(req, res) {
 
   pool.getConnection().then(function(connection) {
     connection.beginTransaction().then(function() {
-      connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]).then(function() {
+      let connectionPromise;
+      if(name == null || name == undefined) {
+        connectionPromise = connection.execute('UPDATE Accounts SET balance = ? WHERE accountID = ?', [balance, accountID]);
+      } else if(balance == null || balance == undefined) {
+        connectionPromise = connection.execute('UPDATE Accounts SET name = ? WHERE accountID = ?', [name, accountID]);
+      } else {
+        connectionPromise = connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
+      }
+      connectionPromise.then(function() {
         connection.commit();
         connection.release();
         res.json({ status: 'success', message: 'Account updated successfully' });

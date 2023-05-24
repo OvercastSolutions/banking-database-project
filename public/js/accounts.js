@@ -19,53 +19,55 @@ function addAccount(accountID, name, balance) {
     })
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    console.log(data);
+    // Add new account to the table
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${accountID}</td>
+      <td>${name}</td>
+      <td>${balance}</td>
+    `;
+    accountsTable.querySelector("tbody").appendChild(newRow);
+  })
   .catch((error) => {
     console.error('Error:', error);
   });
-
-  // Add new account to the table
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-    <td>${accountID}</td>
-    <td>${name}</td>
-    <td>${balance}</td>
-  `;
-  accountsTable.querySelector("tbody").appendChild(newRow);
 }
 
   
 // Function to edit an existing account
 function editAccount(accountID, newName, newBalance) {
-  // Create the request body
-  let body = { accountID: accountID };
-  if (newName) body.name = newName;
-  if (newBalance) body.balance = newBalance;
-
   // Send PUT request to /api/accounts
   fetch('/api/accounts', {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: JSON.stringify({
+      accountID: accountID,
+      name: newName,
+      balance: newBalance
+    })
   })
-  .then(response => response.json())
-  .then(data => console.log(data))
+  .then(function(response) {return response.json();})
+  .then(function(data) {
+    console.log(data);
+    // Update the account in the table
+    const rows = accountsTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === accountID) {
+        row.children[1].textContent = data.name || newName;
+        row.children[2].textContent = data.balance || newBalance;
+        break;
+      }
+    }
+  })
   .catch((error) => {
     console.error('Error:', error);
   });
-
-  // Update the account in the table
-  const rows = accountsTable.querySelectorAll("tbody tr");
-  for (const row of rows) {
-    if (row.children[0].textContent === accountID) {
-      row.children[1].textContent = newName;
-      row.children[2].textContent = newBalance;
-      break;
-    }
-  }
 }
+
 
 // Function to delete an account
 function deleteAccount(accountID) {
@@ -80,19 +82,20 @@ function deleteAccount(accountID) {
     })
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    console.log(data);
+    // Remove the account from the table
+    const rows = accountsTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === accountID) {
+        row.remove();
+        break;
+      }
+    }
+  })
   .catch((error) => {
     console.error('Error:', error);
   });
-
-  // Remove the account from the table
-  const rows = accountsTable.querySelectorAll("tbody tr");
-  for (const row of rows) {
-    if (row.children[0].textContent === accountID) {
-      row.remove();
-      break;
-    }
-  }
 }
 
 // Add account form submit event

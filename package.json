@@ -23,6 +23,6 @@
     "express-handlebars": "^3.0.0",
     "forever": "^1.0.0",
     "mysql": "^2.16.0",
-    "mysql2": "^3.3.2"
+    "mysql2": "^2.1.0"
   }
 }
