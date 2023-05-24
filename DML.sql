@@ -62,6 +62,8 @@ SELECT * FROM Certificates WHERE certificateID = :certificateIDInput;
 --
 
 UPDATE Accounts SET name = :nameInput, balance = :balanceInput WHERE accountID = :accountIDInput;
+UPDATE Accounts SET name = :nameInput WHERE accountID = :accountIDInput;
+UPDATE Accounts SET balance = :balanceInput WHERE accountID = :accountIDInput;
 
 UPDATE Transactions SET amount = :amountInput, tstamp = :tstampInput, statusID = :statusIDInput, sourceID = :sourceIDInput, destID = :destIDInput WHERE transactionID = :transactionIDInput;
 
