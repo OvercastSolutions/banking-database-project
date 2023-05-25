@@ -13,6 +13,7 @@ body {
   background-color: #f0f3f6;
   font-family: 'Roboto', sans-serif;
   color: #333;
+  overflow-y: scroll; /* Always show the scrollbar to keep the header content consistent */
 }
 
 /* Styling the header and footer with a lighter background */
