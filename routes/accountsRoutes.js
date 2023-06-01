@@ -78,19 +78,31 @@ router.put('/', async function(req, res) {
 
 // Edit an existing account
 router.put('/', function(req, res) {
-  const { accountID, name, balance } = req.body;
+  var accountID = req.body.accountID;
+  var name = req.body.name;
+  var balance = req.body.balance;
+
+  var query = 'UPDATE Accounts SET ';
+  var params = [];
+  
+  if (name !== null && name !== undefined && name !== '') {
+    query += 'name = ?, ';
+    params.push(name);
+  }
+  if (balance !== null && balance !== undefined && balance !== '') {
+    query += 'balance = ?, ';
+    params.push(balance);
+  }
+  
+  // remove last comma and space
+  query = query.slice(0, -2);
+  
+  query += ' WHERE accountID = ?';
+  params.push(accountID);
 
   pool.getConnection().then(function(connection) {
     connection.beginTransaction().then(function() {
-      let connectionPromise;
-      if(name == null || name == undefined || name == '') {
-        connectionPromise = connection.execute('UPDATE Accounts SET balance = ? WHERE accountID = ?', [balance, accountID]);
-      } else if(balance == null || balance == undefined || balance == '') {
-        connectionPromise = connection.execute('UPDATE Accounts SET name = ? WHERE accountID = ?', [name, accountID]);
-      } else {
-        connectionPromise = connection.execute('UPDATE Accounts SET name = ?, balance = ? WHERE accountID = ?', [name, balance, accountID]);
-      }
-      connectionPromise.then(function() {
+      connection.execute(query, params).then(function() {
         connection.commit();
         connection.release();
         res.json({ status: 'success', message: 'Account updated successfully' });

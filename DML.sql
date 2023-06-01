@@ -61,6 +61,13 @@ SELECT * FROM Certificates WHERE certificateID = :certificateIDInput;
 -- UPDATE STATEMENTS FOR TABLES
 --
 
+/*
+* Example permutations for updating Accounts. In the backend, we use
+* fields that are assigned if empty/null/etc. and don't actually use
+* the different permutations of the queries. For brevity's sake, we
+* will only show the permutations for the UPDATE statements for the
+* Accounts table.
+*/
 UPDATE Accounts SET name = :nameInput, balance = :balanceInput WHERE accountID = :accountIDInput;
 UPDATE Accounts SET name = :nameInput WHERE accountID = :accountIDInput;
 UPDATE Accounts SET balance = :balanceInput WHERE accountID = :accountIDInput;
