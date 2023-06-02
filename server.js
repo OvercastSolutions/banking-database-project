@@ -5,7 +5,11 @@ const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 
-const accountsRouter = require('./routes/accountsRoutes'); 
+const accountsRouter = require('./routes/accountsRoutes');
+const transactionsRouter = require('./routes/transactionsRoutes');
+const transactionStatusRouter = require('./routes/transactionStatusRoutes');
+const customersRouter = require('./routes/customersRoutes');
+const certificatesRouter = require('./routes/certificatesRoutes');
 
 // Read the database configuration from the private JSON file
 const dbConfig = JSON.parse(fs.readFileSync('dbConfig.json', 'utf8'));
