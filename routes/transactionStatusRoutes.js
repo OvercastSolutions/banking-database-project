@@ -11,13 +11,13 @@ const pool = mysql.createPool(dbConfig);
 
 // Add a new transaction status
 router.post('/', function(req, res) {
-  const { statusID, ownerID, startDate, endDate, amount, rate } = req.body;
+  const { statusID, name, description } = req.body;
 
   pool.getConnection().then(function(connection) {
     connection.beginTransaction().then(() => {
       connection.execute(
-          'INSERT INTO TransactionStatus (ownerID, startDate, endDate, amount, rate) VALUES (?, ?, ?, ?, ?)',
-          [ownerID, startDate, endDate, amount, rate])
+          'INSERT INTO TransactionStatus (statusID, name, description) VALUES (?, ?, ?)',
+          [statusID, name, description])
       .then(([result]) => {
         connection.commit();
         connection.release();
@@ -35,12 +35,11 @@ router.post('/', function(req, res) {
   });
 });
 
-
 // Edit an existing transaction status
 router.put('/', function(req, res) {
   var statusID = req.body.statusID;
   var name = req.body.name;
-  var descrtiption = req.body.descrtiption;
+  var description = req.body.description;
 
   var query = 'UPDATE TransactionStatus SET ';
   var params = [];
@@ -53,9 +52,9 @@ router.put('/', function(req, res) {
     query += 'name = ?, ';
     params.push(name);
   }
-  if (descrtiption !== null && descrtiption !== undefined && descrtiption !== '') {
+  if (description !== null && description !== undefined && description !== '') {
     query += 'description = ?, ';
-    params.push(descrtiption);
+    params.push(description);
   }
   
   // remove last comma and space
@@ -81,7 +80,6 @@ router.put('/', function(req, res) {
     console.error(error);
   });
 });
-
 
 // Delete an transaction status
 router.delete('/', function(req, res) {

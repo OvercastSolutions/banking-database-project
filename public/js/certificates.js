@@ -6,46 +6,104 @@ const certificatesTable = document.getElementById("certificates-table");
 
 // Function to add a new certificate
 function addCertificate(certificateID, ownerID, startDate, endDate, amount, rate) {
-  const newRow = document.createElement("tr");
-
-  newRow.innerHTML = `
-    <td>${certificateID}</td>
-    <td>${ownerID}</td>
-    <td>${startDate}</td>
-    <td>${endDate}</td>
-    <td>${amount}</td>
-    <td>${rate}</td>
-  `;
-
-  certificatesTable.querySelector("tbody").appendChild(newRow);
+  // Send POST request to /api/certificates
+  fetch('/api/certificates', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      certificateID: certificateID,
+      ownerID: ownerID,
+      startDate: startDate,
+      endDate: endDate,
+      amount: amount,
+      rate: rate
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Add new certificate to the table
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${data.certificateID}</td>
+      <td>${ownerID}</td>
+      <td>${startDate}</td>
+      <td>${endDate}</td>
+      <td>${amount}</td>
+      <td>${rate}</td>
+    `;
+    certificatesTable.querySelector("tbody").appendChild(newRow);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to edit an existing certificate
 function editCertificate(certificateID, newOwnerID, newStartDate, newEndDate, newAmount, newRate) {
-  const rows = certificatesTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === certificateID) {
-      if (newOwnerID) row.children[1].textContent = newOwnerID;
-      if (newStartDate) row.children[2].textContent = newStartDate;
-      if (newEndDate) row.children[3].textContent = newEndDate;
-      if (newAmount) row.children[4].textContent = newAmount;
-      if (newRate) row.children[5].textContent = newRate;
-      break;
+  // Send PUT request to /api/certificates
+  fetch('/api/certificates', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      certificateID: certificateID,
+      ownerID: newOwnerID,
+      startDate: newStartDate,
+      endDate: newEndDate,
+      amount: newAmount,
+      rate: newRate
+    })
+  })
+  .then(function(response) {return response.json();})
+  .then(function(data) {
+    console.log(data);
+    // Update the certificate in the table
+    const rows = certificatesTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === certificateID) {
+        if(!(newOwnerID == null || newOwnerID == undefined || newOwnerID == '')) row.children[1].textContent = newOwnerID;
+        if(!(newStartDate == null || newStartDate == undefined || newStartDate == '')) row.children[2].textContent = newStartDate;
+        if(!(newEndDate == null || newEndDate == undefined || newEndDate == '')) row.children[3].textContent = newEndDate;
+        if(!(newAmount == null || newAmount == undefined || newAmount == '')) row.children[4].textContent = newAmount;
+        if(!(newRate == null || newRate == undefined || newRate == '')) row.children[5].textContent = newRate;
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to delete a certificate
 function deleteCertificate(certificateID) {
-  const rows = certificatesTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === certificateID) {
-      row.remove();
-      break;
+  // Send DELETE request to /api/certificates
+  fetch('/api/certificates', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({certificateID: certificateID})
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Delete the certificate from the table
+    const rows = certificatesTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === certificateID) {
+        row.remove();
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Add certificate form submit event
