@@ -49,7 +49,7 @@ function editStatus(statusID, newName, newDescription) {
   .then(function(data) {
     const rows = statusTable.querySelectorAll("tbody tr");
     for (const row of rows) {
-      if (row.children[0].textContent === statusID) {
+      if (row.children[0].textContent === String(statusID)) {
         if(!(newName == null || newName == undefined || newName == '')) row.children[1].textContent = newName;
         if(!(newDescription == null || newDescription == undefined || newDescription == '')) row.children[2].textContent = newDescription;
         break;
@@ -76,7 +76,7 @@ function deleteStatus(statusID) {
   .then(data => {
     const rows = statusTable.querySelectorAll("tbody tr");
     for (const row of rows) {
-      if (row.children[0].textContent === statusID) {
+      if (row.children[0].textContent === String(statusID)) {
         row.remove();
         break;
       }
@@ -91,7 +91,7 @@ function deleteStatus(statusID) {
 addForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const statusID = addForm["statusID"].value;
+  const statusID = Number(addForm["statusID"].value);
   const name = addForm["name"].value;
   const description = addForm["description"].value;
 
@@ -105,7 +105,7 @@ addForm.addEventListener("submit", (e) => {
 editForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const statusID = editForm["statusID"].value;
+  const statusID = Number(editForm["statusID"].value);
   const name = editForm["name"].value;
   const description = editForm["description"].value;
 
@@ -119,7 +119,7 @@ editForm.addEventListener("submit", (e) => {
 deleteForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const statusID = deleteForm["statusID"].value;
+  const statusID = Number(deleteForm["statusID"].value);
 
   deleteStatus(statusID);
 
