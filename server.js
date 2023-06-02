@@ -30,6 +30,10 @@ app.use(bodyParser.json());
 
 // Add routes to support CRUD operations on accounts
 app.use('/api/accounts', accountsRouter);
+app.use('/api/transactions', transactionsRouter);
+app.use('/api/transactionStatus', transactionStatusRouter);
+app.use('/api/customers', customersRouter);
+app.use('/api/certificates', certificatesRouter);
 
 // Set up the Handlebars view engine
 const hbs = exphbs.create({ 
