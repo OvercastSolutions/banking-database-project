@@ -88,17 +88,44 @@ app.get('/certificates', (req, res) => {
   });
 });
 
+// Define routes for join table pages, passing in the three appropriate tables
 app.get('/customer_account', (req, res) => {
-  pool.query('SELECT * FROM Customer_Account', (error, results) => {
+  pool.query('SELECT * FROM Customers', (error, customers) => {
     if (error) throw error;
-    res.render('partials/customer_account', { customer_account: results });
+
+    pool.query('SELECT * FROM Accounts', (error, accounts) => {
+      if (error) throw error;
+
+      pool.query('SELECT * FROM Customer_Account', (error, customer_account) => {
+        if (error) throw error;
+
+        res.render('partials/customer_account', {
+          customers,
+          accounts,
+          customer_account
+        });
+      });
+    });
   });
 });
 
 app.get('/account_transaction', (req, res) => {
-  pool.query('SELECT * FROM Account_Transaction', (error, results) => {
+  pool.query('SELECT * FROM Accounts', (error, accounts) => {
     if (error) throw error;
-    res.render('partials/account_transaction', { account_transaction: results });
+
+    pool.query('SELECT * FROM Transactions', (error, transactions) => {
+      if (error) throw error;
+
+      pool.query('SELECT * FROM Account_Transaction', (error, account_transaction) => {
+        if (error) throw error;
+
+        res.render('partials/account_transaction', {
+          accounts,
+          transactions,
+          account_transaction
+        });
+      });
+    });
   });
 });
 
