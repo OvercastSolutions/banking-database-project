@@ -6,40 +6,85 @@ const statusTable = document.getElementById("status-table");
 
 // Function to add a new transaction status
 function addStatus(statusID, name, description) {
-  const newRow = document.createElement("tr");
-
-  newRow.innerHTML = `
-    <td>${statusID}</td>
-    <td>${name}</td>
-    <td>${description}</td>
-  `;
-
-  statusTable.querySelector("tbody").appendChild(newRow);
+  fetch('/api/transactionStatus', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      statusID: statusID,
+      name: name,
+      description: description
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${data.statusID}</td>
+      <td>${name}</td>
+      <td>${description}</td>
+    `;
+    statusTable.querySelector("tbody").appendChild(newRow);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to edit an existing transaction status
 function editStatus(statusID, newName, newDescription) {
-  const rows = statusTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === statusID) {
-      if (newName) row.children[1].textContent = newName;
-      if (newDescription) row.children[2].textContent = newDescription;
-      break;
+  fetch('/api/transactionStatus', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      statusID: statusID,
+      name: newName,
+      description: newDescription
+    })
+  })
+  .then(function(response) {return response.json();})
+  .then(function(data) {
+    const rows = statusTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === statusID) {
+        if(!(newName == null || newName == undefined || newName == '')) row.children[1].textContent = newName;
+        if(!(newDescription == null || newDescription == undefined || newDescription == '')) row.children[2].textContent = newDescription;
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to delete a transaction status
 function deleteStatus(statusID) {
-  const rows = statusTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === statusID) {
-      row.remove();
-      break;
+  fetch('/api/transactionStatus', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      statusID: statusID
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const rows = statusTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === statusID) {
+        row.remove();
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Add status form submit event
@@ -61,10 +106,10 @@ editForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   const statusID = editForm["statusID"].value;
-  const newName = editForm["name"].value;
-  const newDescription = editForm["description"].value;
+  const name = editForm["name"].value;
+  const description = editForm["description"].value;
 
-  editStatus(statusID, newName, newDescription);
+  editStatus(statusID, name, description);
 
   // Reset the form
   editForm.reset();

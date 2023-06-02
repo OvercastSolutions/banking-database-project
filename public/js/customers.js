@@ -6,46 +6,106 @@ const customersTable = document.getElementById("customers-table");
 
 // Function to add a new customer
 function addCustomer(customerID, fname, lname, email, ssn, addr) {
-  const newRow = document.createElement("tr");
-
-  newRow.innerHTML = `
-    <td>${customerID}</td>
-    <td>${fname}</td>
-    <td>${lname}</td>
-    <td>${email}</td>
-    <td>${ssn}</td>
-    <td>${addr}</td>
-  `;
-
-  customersTable.querySelector("tbody").appendChild(newRow);
+  // Send POST request to /api/customers
+  fetch('/api/customers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      customerID: customerID,
+      fname: fname,
+      lname: lname,
+      email: email,
+      ssn: ssn,
+      addr: addr
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Add new customer to the table
+    const newRow = document.createElement("tr");
+    newRow.innerHTML = `
+      <td>${data.customerID}</td>
+      <td>${fname}</td>
+      <td>${lname}</td>
+      <td>${email}</td>
+      <td>${ssn}</td>
+      <td>${addr}</td>
+    `;
+    customersTable.querySelector("tbody").appendChild(newRow);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to edit an existing customer
 function editCustomer(customerID, newFname, newLname, newEmail, newSSN, newAddr) {
-  const rows = customersTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === customerID) {
-      if (newFname) row.children[1].textContent = newFname;
-      if (newLname) row.children[2].textContent = newLname;
-      if (newEmail) row.children[3].textContent = newEmail;
-      if (newSSN) row.children[4].textContent = newSSN;
-      if (newAddr) row.children[5].textContent = newAddr;
-      break;
+  // Send PUT request to /api/customers
+  fetch('/api/customers', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      customerID: customerID,
+      fname: newFname,
+      lname: newLname,
+      email: newEmail,
+      ssn: newSSN,
+      addr: newAddr
+    })
+  })
+  .then(function(response) {return response.json();})
+  .then(function(data) {
+    console.log(data);
+    // Update the customer in the table
+    const rows = customersTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === customerID) {
+        if(!(newFname == null || newFname == undefined || newFname == '')) row.children[1].textContent = newFname;
+        if(!(newLname == null || newLname == undefined || newLname == '')) row.children[2].textContent = newLname;
+        if(!(newEmail == null || newEmail == undefined || newEmail == '')) row.children[3].textContent = newEmail;
+        if(!(newSSN == null || newSSN == undefined || newSSN == '')) row.children[4].textContent = newSSN;
+        if(!(newAddr == null || newAddr == undefined || newAddr == '')) row.children[5].textContent = newAddr;
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Function to delete a customer
 function deleteCustomer(customerID) {
-  const rows = customersTable.querySelectorAll("tbody tr");
-
-  for (const row of rows) {
-    if (row.children[0].textContent === customerID) {
-      row.remove();
-      break;
+  // Send DELETE request to /api/customers
+  fetch('/api/customers', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      customerID: customerID
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    // Remove the customer from the table
+    const rows = customersTable.querySelectorAll("tbody tr");
+    for (const row of rows) {
+      if (row.children[0].textContent === customerID) {
+        row.remove();
+        break;
+      }
     }
-  }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
 }
 
 // Add customer form submit event
