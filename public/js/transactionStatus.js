@@ -47,6 +47,8 @@ function editStatus(statusID, newName, newDescription) {
   })
   .then(function(response) {return response.json();})
   .then(function(data) {
+    console.log(data);
+    // Update the account in the table
     const rows = statusTable.querySelectorAll("tbody tr");
     for (const row of rows) {
       if (row.children[0].textContent === statusID) {
