@@ -7,6 +7,8 @@
 
 /* Set up the body with a Roboto font, a darker background, and layout it out as a flex container */
 body {
+  padding-left: 2rem;
+  padding-right: 2rem;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
