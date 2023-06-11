@@ -99,6 +99,54 @@ CREATE TABLE Account_Transaction (
     FOREIGN KEY (transactionID) REFERENCES Transactions(transactionID) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+/*
+* Create the triggers for the database
+*/
+
+-- Trigger for updating the balance of an account
+DELIMITER //
+CREATE TRIGGER AfterInsertTransaction
+AFTER INSERT ON Transactions
+FOR EACH ROW
+BEGIN
+    IF NEW.sourceID != NEW.destID THEN
+        UPDATE Accounts SET balance = balance - NEW.amount WHERE accountID = NEW.sourceID;
+        UPDATE Accounts SET balance = balance + NEW.amount WHERE accountID = NEW.destID;
+    END IF;
+END //
+DELIMITER ;
+
+-- Trigger for updating the balance of an account
+DELIMITER //
+CREATE TRIGGER BeforeUpdateTransaction
+BEFORE UPDATE ON Transactions
+FOR EACH ROW
+BEGIN
+    IF OLD.sourceID != OLD.destID THEN
+        UPDATE Accounts SET balance = balance + OLD.amount WHERE accountID = OLD.sourceID;
+        UPDATE Accounts SET balance = balance - OLD.amount WHERE accountID = OLD.destID;
+    END IF;
+
+    IF NEW.sourceID != NEW.destID THEN
+        UPDATE Accounts SET balance = balance - NEW.amount WHERE accountID = NEW.sourceID;
+        UPDATE Accounts SET balance = balance + NEW.amount WHERE accountID = NEW.destID;
+    END IF;
+END //
+DELIMITER ;
+
+-- Trigger for reversing the effect of a transaction on the balance of an account
+DELIMITER //
+CREATE TRIGGER AfterDeleteTransaction
+AFTER DELETE ON Transactions
+FOR EACH ROW
+BEGIN
+    IF OLD.sourceID != OLD.destID THEN
+        UPDATE Accounts SET balance = balance + OLD.amount WHERE accountID = OLD.sourceID;
+        UPDATE Accounts SET balance = balance - OLD.amount WHERE accountID = OLD.destID;
+    END IF;
+END //
+DELIMITER ;
+
 
 /*
 * Fill the tables with mock data
