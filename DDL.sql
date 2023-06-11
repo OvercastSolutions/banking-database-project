@@ -9,15 +9,16 @@
 *   small local bank.
 */
 
-/*
-* Create the tables for the database
-*/
+-- DROP TRIGGERS THAT EXIST
+DROP TRIGGER IF EXISTS AfterInsertTransaction;
+DROP TRIGGER IF EXISTS BeforeUpdateTransaction;
+DROP TRIGGER IF EXISTS AfterDeleteTransaction;
+
 
 -- DROP TABLES THAT EXIST
 -- DO IN CERTAIN ORDER TO PREVENT DEPENDENCY ERRORS
 -- `Certificates`, `Customers`, `Accounts`,
 -- `TransactionStatus`, `Transactions`
-
 DROP TABLE IF EXISTS Account_Transaction;
 DROP TABLE IF EXISTS Customer_Account;
 DROP TABLE IF EXISTS Certificates;
@@ -25,6 +26,10 @@ DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS TransactionStatus;
 DROP TABLE IF EXISTS Customers;
 DROP TABLE IF EXISTS Accounts;
+
+/*
+* Create the tables for the database
+*/
 
 CREATE TABLE Accounts (
     accountID INT UNIQUE NOT NULL AUTO_INCREMENT,
@@ -61,7 +66,7 @@ CREATE TABLE Customers (
     fname VARCHAR(255) NOT NULL,
     lname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    ssn VARCHAR(9) NOT NULL,
+    ssn VARCHAR(9) UNIQUE NOT NULL,
     addr VARCHAR(255) NOT NULL,
     
     PRIMARY KEY (customerID)
