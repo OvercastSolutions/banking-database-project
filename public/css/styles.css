@@ -71,15 +71,20 @@ th, td {
   background-color: #ffffff;
 }
 
-/* Styling form labels and inputs */
-form label {
-  display: inline-block;  /* This will make the label display inline with its input */
-  margin-right: 10px;
+/* Styling the form itself */
+form {
+  border: 1px solid #444; /* Add border */
+  padding: 10px; /* Add some padding inside the form */
+  margin-bottom: 20px; /* Add some space below the form */
 }
 
+/* Styling form labels and inputs to appear on one line */
+form label, 
 form input[type="number"], 
 form input[type="text"], 
-form input[type="datetime-local"] {
+form input[type="datetime-local"],
+form input[type="submit"],
+form button {
   display: inline-block;  /* This will make each input display inline with its label */
   margin-bottom: 10px;  /* Add space below each input */
 }
