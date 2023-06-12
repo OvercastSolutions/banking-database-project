@@ -1,7 +1,7 @@
 /* 
 * File: DDL.sql
 * Authors: Stef Timmermans, Derek Williams
-* Date: 05/23/2023
+* Date: 06/10/2023
 * Description:
 *   This file contains the Data Definition Queries
 *   and the sample inserts for the database. Database

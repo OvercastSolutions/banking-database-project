@@ -1,10 +1,26 @@
 # **Banking Database Project**
 ### ***Final Project Name TBD***
-### ***Version: Pre-Release***
+### ***Version: 1.0.0***
 
 <br>
 
 This repository holds the working "Banking Database Project", originally created as a term project for Oregon State University's Introduction to Databases course (CS 340). Eventually, this repository will be a proof-of-concept for a full banking database web app.
+
+<br>
+
+## **Database Design**
+
+<br>
+
+<img src="./assets/banking-erd.png" alt="Banking ERD" height="500">
+
+***Entity Relationship Diagram***
+
+<br>
+
+<img src="./assets/banking-schema.png" alt= "Banking Schema" height="500">
+
+***Schema***
 
 <br>
 
@@ -13,6 +29,8 @@ This repository holds the working "Banking Database Project", originally created
 To use this project, run **`npm install`** in the root directory.
 
 Running the app locally can be done with either **`npm start`** or **`forever start server.js`** (if you wish for the app to run in the background perpetually).
+
+When running locally, navigate to: `http://localhost:5383/`.
 
 <br>
 

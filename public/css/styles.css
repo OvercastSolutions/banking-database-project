@@ -7,8 +7,6 @@
 
 /* Set up the body with a Roboto font, a darker background, and layout it out as a flex container */
 body {
-  padding-left: 2rem;
-  padding-right: 2rem;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -27,7 +25,8 @@ header, footer {
 
 /* Add padding on the left and right to the body content */
 .body-content {
-  padding: 0 20px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   overflow-y: auto;  /* Add a scrollbar only when necessary */
   flex-grow: 1; /* This will allow body-content to take up remaining space */
 }
@@ -37,11 +36,12 @@ nav a {
   margin: 0 10px;
   text-decoration: none;
   color: #333;
+  transition: color 0.25s ease-in-out;
 }
 
 /* Adding a blue tone to navigation links on hover */
 nav a:hover {
-  color: #3178C6; 
+  color: #3178C6;
 }
 
 /* Adding a class for centered titles with padding */
@@ -71,15 +71,20 @@ th, td {
   background-color: #ffffff;
 }
 
-/* Styling form labels and inputs */
-form label {
-  display: inline-block;  /* This will make the label display inline with its input */
-  margin-right: 10px;
+/* Styling the form itself */
+form {
+  border: 1px solid #444; /* Add border */
+  padding: 10px; /* Add some padding inside the form */
+  margin-bottom: 20px; /* Add some space below the form */
 }
 
+/* Styling form labels and inputs to appear on one line */
+form label, 
 form input[type="number"], 
 form input[type="text"], 
-form input[type="datetime-local"] {
+form input[type="datetime-local"],
+form input[type="submit"],
+form button {
   display: inline-block;  /* This will make each input display inline with its label */
   margin-bottom: 10px;  /* Add space below each input */
 }

@@ -98,44 +98,58 @@ app.get('/certificates', (req, res) => {
 
 // Define routes for join table pages, passing in the three appropriate tables
 app.get('/customer_account', (req, res) => {
-  pool.query('SELECT * FROM Customers', (error, customers) => {
+  const query = `
+    SELECT 
+        CA.jxnID, 
+        CA.customerID, 
+        C.fname, 
+        C.lname, 
+        A.name, 
+        A.balance
+    FROM 
+        Customer_Account CA
+    INNER JOIN 
+        Customers C ON CA.customerID = C.customerID
+    INNER JOIN 
+        Accounts A ON CA.accountID = A.accountID
+  `;
+
+  pool.query(query, (error, results) => {
     if (error) throw error;
-
-    pool.query('SELECT * FROM Accounts', (error, accounts) => {
-      if (error) throw error;
-
-      pool.query('SELECT * FROM Customer_Account', (error, customer_account) => {
-        if (error) throw error;
-
-        res.render('partials/customer_account', {
-          customers,
-          accounts,
-          customer_account
-        });
-      });
-    });
+    
+    res.render('partials/customer_account', { results });
   });
 });
 
 app.get('/account_transaction', (req, res) => {
-  pool.query('SELECT * FROM Accounts', (error, accounts) => {
+  const query = `
+    SELECT 
+        AT.jxnID, 
+        T.sourceID AS sourceID_a, 
+        A1.name AS name_a, 
+        A1.balance AS balance_a,
+        T.destID AS destID_b, 
+        A2.name AS name_b, 
+        A2.balance AS balance_b,
+        AT.transactionID, 
+        T.statusID
+    FROM 
+        Account_Transaction AT
+    INNER JOIN 
+        Transactions T ON AT.transactionID = T.transactionID
+    INNER JOIN 
+        Accounts A1 ON T.sourceID = A1.accountID
+    INNER JOIN 
+        Accounts A2 ON T.destID = A2.accountID
+  `;
+
+  pool.query(query, (error, results) => {
     if (error) throw error;
-
-    pool.query('SELECT * FROM Transactions', (error, transactions) => {
-      if (error) throw error;
-
-      pool.query('SELECT * FROM Account_Transaction', (error, account_transaction) => {
-        if (error) throw error;
-
-        res.render('partials/account_transaction', {
-          accounts,
-          transactions,
-          account_transaction
-        });
-      });
-    });
+    
+    res.render('partials/account_transaction', { results });
   });
 });
+
 
 // Define the route for the 404 page
 app.use((req, res) => {
