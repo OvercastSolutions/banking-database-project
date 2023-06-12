@@ -1,120 +1,26 @@
-<h1 class="title">Customer_Account</h1>
+<h1 class="title">Customer Accounts</h1>
 
-<table>
+<table id="customer-accounts-table">
     <thead>
         <tr>
             <th>Junction ID</th>
             <th>Customer ID</th>
-            <th>Account ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Account Name</th>
+            <th>Balance</th>
         </tr>
     </thead>
     <tbody>
-        {{#each customer_account}}
+        {{#each results}}
             <tr>
                 <td>{{this.jxnID}}</td>
                 <td>{{this.customerID}}</td>
-                <td>{{this.accountID}}</td>
+                <td>{{this.fname}}</td>
+                <td>{{this.lname}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.balance}}</td>
             </tr>
         {{/each}}
     </tbody>
 </table>
-
-<div style="overflow: auto;">
-  <div style="float: left; width: 50%; padding-right: 20px;">
-    <h2 style="padding-bottom: 4px;">Customers</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Customer ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                <th>SSN</th>
-                <th>Address</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each customers}}
-                <tr>
-                    <td>{{this.customerID}}</td>
-                    <td>{{this.fname}}</td>
-                    <td>{{this.lname}}</td>
-                    <td>{{this.email}}</td>
-                    <td>{{this.ssn}}</td>
-                    <td>{{this.addr}}</td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-  </div>
-
-  <div style="float: left; width: 50%; padding-left: 20px;">
-    <h2 style="padding-bottom: 4px;">Accounts</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Account ID</th>
-                <th>Name</th>
-                <th>Balance</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each accounts}}
-                <tr>
-                    <td>{{this.accountID}}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.balance}}</td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
-  </div>
-</div>
-
-<!-- Add Customer Account Form
-<h2>Add Customer Account</h2>
-<form id="add-customer-account-form">
-    <label for="jxnID">Junction ID:</label>
-    <input type="number" id="add-jxnID-input" name="jxnID" required>
-
-    <label for="customerID">Customer ID:</label>
-    <input type="number" id="add-customerID-input" name="customerID" required>
-
-    <label for="accountID">Account ID:</label>
-    <input type="number" id="add-accountID-input" name="accountID" required>
-
-    <button type="button" id="add-customer-account-cancel-input">Cancel</button>
-    <input type="submit" id="add-customer-account-confirm-input" value="Submit">
-</form>
--->
-
-<!-- Edit Customer Account Form
-<h2>Edit Customer Account</h2>
-<form id="edit-customer-account-form">
-    <label for="jxnID">Junction ID:</label>
-    <input type="number" id="edit-jxnID-input" name="jxnID" required>
-
-    <label for="customerID">Customer ID:</label>
-    <input type="number" id="edit-customerID-input" name="customerID">
-
-    <label for="accountID">Account ID:</label>
-    <input type="number" id="edit-accountID-input" name="accountID">
-
-    <button type="button" id="edit-customer-account-cancel-input">Cancel</button>
-    <input type="submit" id="edit-customer-account-confirm-input" value="Submit">
-</form>
--->
-
-<!-- Delete Customer Account Form
-<h2>Delete Customer Account</h2>
-<form id="delete-customer-account-form">
-    <label for="jxnID">Junction ID:</label>
-    <input type="number" id="delete-jxnID-input" name="jxnID" required>
-
-    <button type="button" id="delete-customer-account-cancel-input">Cancel</button>
-    <input type="submit" id="delete-customer-account-confirm-input" value="Submit">
-</form>
--->
-
-<!-- Include script file -->
-<script src="/js/customer_account.js"></script>

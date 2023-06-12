@@ -98,22 +98,26 @@ app.get('/certificates', (req, res) => {
 
 // Define routes for join table pages, passing in the three appropriate tables
 app.get('/customer_account', (req, res) => {
-  pool.query('SELECT * FROM Customers', (error, customers) => {
+  const query = `
+    SELECT 
+        CA.jxnID, 
+        CA.customerID, 
+        C.fname, 
+        C.lname, 
+        A.name, 
+        A.balance
+    FROM 
+        Customer_Account CA
+    INNER JOIN 
+        Customers C ON CA.customerID = C.customerID
+    INNER JOIN 
+        Accounts A ON CA.accountID = A.accountID
+  `;
+
+  pool.query(query, (error, results) => {
     if (error) throw error;
-
-    pool.query('SELECT * FROM Accounts', (error, accounts) => {
-      if (error) throw error;
-
-      pool.query('SELECT * FROM Customer_Account', (error, customer_account) => {
-        if (error) throw error;
-
-        res.render('partials/customer_account', {
-          customers,
-          accounts,
-          customer_account
-        });
-      });
-    });
+    
+    res.render('partials/customer_account', { results });
   });
 });
 
