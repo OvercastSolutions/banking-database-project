@@ -36,11 +36,12 @@ nav a {
   margin: 0 10px;
   text-decoration: none;
   color: #333;
+  transition: color 0.25s ease-in-out;
 }
 
 /* Adding a blue tone to navigation links on hover */
 nav a:hover {
-  color: #3178C6; 
+  color: #3178C6;
 }
 
 /* Adding a class for centered titles with padding */
