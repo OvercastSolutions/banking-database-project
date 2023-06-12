@@ -7,8 +7,6 @@
 
 /* Set up the body with a Roboto font, a darker background, and layout it out as a flex container */
 body {
-  padding-left: 2rem;
-  padding-right: 2rem;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -27,7 +25,8 @@ header, footer {
 
 /* Add padding on the left and right to the body content */
 .body-content {
-  padding: 0 20px;
+  padding-left: 2rem;
+  padding-right: 2rem;
   overflow-y: auto;  /* Add a scrollbar only when necessary */
   flex-grow: 1; /* This will allow body-content to take up remaining space */
 }
