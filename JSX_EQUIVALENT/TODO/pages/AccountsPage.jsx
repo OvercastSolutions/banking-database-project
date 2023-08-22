@@ -11,6 +11,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import AccountsForm from '../forms/AccountsForm';
 
 const AccountsPage = () => {
     const [accounts, setAccounts] = useState([]);
@@ -48,6 +49,8 @@ const AccountsPage = () => {
                     ))}
                 </tbody>
             </table>
+            <AccountsForm accounts={accounts} onAccountsChange={setAccounts} />
+            {/* The AccountsForm component is rendered here and is given the necessary props */}
         </div>
     );
 };
