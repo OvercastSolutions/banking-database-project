@@ -1,4 +1,4 @@
-/**
+/*
 * Component: AccountsPage
 * Description:
 *   Fetches and displays the accounts from the `/api/accounts` endpoint.
