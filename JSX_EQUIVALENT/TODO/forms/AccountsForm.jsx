@@ -5,16 +5,21 @@
 *   the database. It connects to the AccountsPage component
 *   (`../pages/AccountsPage.jsx`), which is responsible for fetching
 *   and displaying the accounts from the API.
+*
+* External Libraries:
+*   Uses axios for API requests. See: https://github.com/axios/axios
 */
 
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AccountsForm = () => {
+const AccountsForm = ({ accounts, onAccountsChange }) => {
     const [formData, setFormData] = useState({
+        id: null,
         name: "",
         balance: ""
     });
+    const [isEditing, setIsEditing] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -24,23 +29,52 @@ const AccountsForm = () => {
         });
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
+    const handleEdit = (account) => {
+        setIsEditing(true);
+        setFormData(account);
+    };
+
+    const handleDelete = async (accountId) => {
         try {
-            // Attempt to add an account to the database using axios
-            // For axios information see: https://github.com/axios/axios
-            await axios.post('/api/accounts', formData);
-            alert("Account added successfully!");
+            await axios.delete(`/api/accounts/${accountId}`);
+            onAccountsChange(accounts.filter(account => account.accountID !== accountId));
+            alert("Account deleted successfully!");
         } catch (error) {
-            console.log("Error adding account", error);
+            console.log("Error deleting account", error);
         }
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (isEditing) {
+            try {
+                await axios.put(`/api/accounts/${formData.id}`, formData);
+                onAccountsChange(accounts.map(account => account.accountID === formData.id ? formData : account));
+                setIsEditing(false);
+                alert("Account updated successfully!");
+            } catch (error) {
+                console.log("Error updating account", error);
+            }
+        } else {
+            try {
+                await axios.post('/api/accounts', formData);
+                onAccountsChange([...accounts, formData]);
+                alert("Account added successfully!");
+            } catch (error) {
+                console.log("Error adding account", error);
+            }
+        }
+        setFormData({
+            id: null,
+            name: "",
+            balance: ""
+        });
+    };
+
     return (
-        // Create a form to add an account to the database
         <div>
-            <h2>Add Account</h2>
-            <form id="add-account-form" onSubmit={handleSubmit}>
+            <h2>{isEditing ? "Edit" : "Add"} Account</h2>
+            <form id="account-form" onSubmit={handleSubmit}>
                 <label htmlFor="name">Name:</label>
                 <input
                     type="text"
@@ -59,9 +93,19 @@ const AccountsForm = () => {
                     value={formData.balance}
                     onChange={handleChange}
                 />
-                <button type="submit" id="add-confirm-button" value="Submit">Add Account</button>
+                <button type="submit" id="confirm-button">
+                    {isEditing ? "Update" : "Add"} Account
+                </button>
             </form>
-            {/* fields for editing and deleting accounts go here */}
+            <div>
+                {accounts.map(account => (
+                    <div key={account.accountID}>
+                        <span>{account.name} - ${account.balance}</span>
+                        <button onClick={() => handleEdit(account)}>Edit</button>
+                        <button onClick={() => handleDelete(account.accountID)}>Delete</button>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
