@@ -1,10 +1,12 @@
-/*
+/**
 * Component: AccountsPage
 * Description:
-*   This component is responsible for fetching and displaying the 
-*   accounts from the API. It connects to the AccountsForm component
-*   (`../forms/AccountsForm.jsx`), which is responsible for updating
-*   the Accounts table in the database.
+*   Fetches and displays the accounts from the `/api/accounts` endpoint.
+*   Interacts with the AccountsForm component (`../forms/AccountsForm.jsx`)
+*   for updating the Accounts table in the database.
+*   
+* External Libraries:
+*   Uses axios for API requests. See: https://github.com/axios/axios
 */
 
 import React, { useEffect, useState } from 'react';
@@ -16,8 +18,6 @@ const AccountsPage = () => {
     useEffect(() => {
         async function fetchAccounts() {
             try {
-                // Attempt to fetch accounts from the API using axios
-                // For axios information see: https://github.com/axios/axios
                 const response = await axios.get('/api/accounts');
                 setAccounts(response.data);
             } catch (error) {
@@ -28,7 +28,6 @@ const AccountsPage = () => {
     }, []);
 
     return (
-        // Populate the table with the accounts
         <div>
             <h1 className="title">Accounts</h1>
             <table id="accounts-table">
