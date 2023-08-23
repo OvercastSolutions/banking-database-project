@@ -5,7 +5,34 @@ import PropTypes from 'prop-types';
 
 async function loginUser(credentials) {
     //TODO: replace with actual safe login logic
-    return {token: `${credentials.username}-${Date.now()}-${credentials.password}`};
+    //return {token: `${credentials.username}-${Date.now()}-${credentials.password}`};
+
+    try {
+        const resp = await fetch('http://localhost:5043/auth/login', {
+            'method': 'POST',
+            'headers': {'Content-Type': 'application/json'},
+            'body': JSON.stringify(credentials)
+        });
+
+        console.log(resp);
+
+        if (!resp.ok) {
+            throw new Error('Login failed'); // Handle error cases
+        }
+
+        const data = await resp.json(); // Parse response body as JSON
+
+        if (data && data.token) {
+            return {'token': data.token}; // Return the token
+        } 
+        else {
+            throw new Error('Token not found in response');
+        }
+    }
+    catch (error) {
+        console.error(error);
+    }
+  
 }
 
 

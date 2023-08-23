@@ -12,13 +12,6 @@ import Logout from './components/Logout.jsx';
 
 
 /*******************************
- * Connect Auth DB
- */
-import authConnector from './authConnector.js'; // Load the Auth DB Connector Module
-//const authConnector = require('./authConnector.js'); // Load the Auth DB Connector Module
-authConnector(); // Connect to the Auth DB
-
-/*******************************
  * User Token
  */
 function setUserToken(userToken) {
