@@ -3,7 +3,6 @@ import './App.css';
 
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-
 /*******************************
  * Import Components
  */
@@ -11,6 +10,13 @@ import Dashboard from './components/Dashboard.jsx';
 import Login from './components/Login.jsx';
 import Logout from './components/Logout.jsx';
 
+
+/*******************************
+ * Connect Auth DB
+ */
+import authConnector from './authConnector.js'; // Load the Auth DB Connector Module
+//const authConnector = require('./authConnector.js'); // Load the Auth DB Connector Module
+authConnector(); // Connect to the Auth DB
 
 /*******************************
  * User Token
